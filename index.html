@@ -443,6 +443,34 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
 .diag-foot p{margin:0; color:var(--text-sec); font-size:.95rem}
 .diag-foot b{color:var(--text)}
 
+/* ---------- situa: informe ràpid ---------- */
+.sit{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start}
+@media(max-width:940px){.sit{grid-template-columns:1fr}}
+.qform{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:8px 24px}
+.qrow{padding:18px 0; border-bottom:1px solid var(--border)}
+.qrow:last-child{border-bottom:none}
+.qlab{font-weight:650; font-size:.95rem}
+.qref{font-size:.78rem; color:var(--text-dis); margin:2px 0 10px}
+.opts{display:flex; flex-wrap:wrap; gap:6px}
+.opt{font:inherit; font-size:.8rem; font-weight:600; padding:6px 11px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text-sec); cursor:pointer; transition:.15s; font-variant-numeric:tabular-nums}
+.opt:hover{border-color:var(--text-dis); color:var(--text)}
+.opt.sel{background:var(--primary); border-color:var(--primary); color:#fff}
+.opt.nk.sel{background:var(--text-sec); border-color:var(--text-sec)}
+.rep{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-lg); padding:22px 24px; position:sticky; top:84px}
+@media(max-width:940px){.rep{position:static}}
+.rep-top{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px}
+.rep-t{font-weight:700; font-size:1rem}
+.rep-reset{font:inherit; font-size:.78rem; font-weight:600; color:var(--text-sec); background:none; border:none; cursor:pointer; padding:0; text-decoration:underline; text-underline-offset:2px}
+.rep-chart svg{width:100%; height:auto; display:block}
+.rep-chart text{font-family:inherit; font-size:11.5px; fill:var(--text-sec)}
+.rep-chart .rl{fill:var(--text); font-weight:600}
+.rep-chart .bandr{transition:x .45s cubic-bezier(.2,.7,.3,1), width .45s cubic-bezier(.2,.7,.3,1), fill .3s}
+.rep-head{font-weight:650; margin:14px 0 8px}
+.rep-list{margin:0; padding-left:18px; font-size:.88rem; color:var(--text-sec)}
+.rep-list li{margin-bottom:7px}
+.rep-foot{margin-top:18px; padding-top:16px; border-top:1px solid var(--border)}
+.rep-foot .btn.off{opacity:.45; pointer-events:none}
+
 /* ---------- entrada escalonada ---------- */
 .stg > *{opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1)}
 .stg.in > *{opacity:1; transform:none}
@@ -536,36 +564,28 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
 <section id="situa">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow">Comparació</span>
-      <h2>El teu 12% és bo o dolent?</h2>
-      <p class="lede">Depèn de contra què el posis. Tria un indicador, mou el punt fins al valor del teu centre i mira on cau respecte de la xifra publicada per al conjunt de Catalunya.</p>
+      <span class="eyebrow">Situa el centre</span>
+      <h2>On és el teu centre respecte de Catalunya?</h2>
+      <p class="lede">No cal el valor exacte. Marca la franja en què creus que és el teu centre per a cada indicador i obtindràs una imatge ràpida de la seva situació respecte del conjunt de centres de Catalunya. Si no saps una dada, deixa-la en blanc: també diu alguna cosa.</p>
     </div>
 
-    <div class="cmp rv">
-      <div class="chips" id="chips"></div>
+    <div class="sit rv">
+      <div class="qform" id="qform"></div>
 
-      <div class="scale-wrap">
-        <div class="scale">
-          <div class="scale-fill" id="fill"></div>
-          <div class="ref-lab" id="reflab">Referència</div>
-          <div class="ref-tick" id="reftick"></div>
+      <div class="rep" id="rep" aria-live="polite">
+        <div class="rep-top">
+          <span class="rep-t">Informe ràpid del centre</span>
+          <button type="button" class="rep-reset" id="represet">Tornar a començar</button>
         </div>
-        <input type="range" id="slider" min="0" max="100" step="0.1" value="20" aria-label="Valor del teu centre">
-        <div class="axis"><span id="axmin">0%</span><span id="axmax">100%</span></div>
-      </div>
-
-      <div class="cmp-read">
-        <div>
-          <div class="cmp-val" id="cval">—</div>
-          <div class="xsmall muted">el valor del teu centre</div>
-        </div>
-        <div>
-          <div class="verdict" id="verdict">—</div>
-          <div class="cmp-note" id="cnote"></div>
+        <div class="rep-chart" id="repchart"></div>
+        <p class="rep-head" id="rephead">Marca almenys un indicador per veure la imatge del centre.</p>
+        <ul class="rep-list" id="replist"></ul>
+        <div class="rep-foot">
+          <a class="btn btn-p" id="repmail" href="#">Demanar la sessió amb aquest informe</a>
+          <p class="xsmall muted" style="margin:12px 0 0">Imatge orientativa: franges estimades contra agregats públics de Catalunya. La mitjana del centre pot amagar diferències grans entre cicles. Les respostes no surten del teu navegador.</p>
         </div>
       </div>
     </div>
-    <p class="small muted rv" style="margin-top:16px">Les referències són agregats publicats per al conjunt de Catalunya. No hi ha cap dada de cap centre en aquesta pàgina, ni real ni inventada.</p>
   </div>
 </section>
 
@@ -938,7 +958,7 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
     <p class="lede rv">Envia'm el catàleg d'indicadors del teu projecte de direcció i el carrego abans de la sessió. En vint minuts pots veure quants es poden calcular amb el que el centre ja té, quants necessiten una dada que encara no recull ningú, i quins estan redactats de manera que no es poden calcular de cap manera. Si hi afegeixes les dues últimes memòries, també veuràs quins tenen prou història per mesurar l'efecte de les mesures.</p>
     <div class="cta-row rv" style="justify-content:center">
       <a class="btn btn-p" href="mailto:rogerubia@classofty.com?subject=Sessió%20de%20demostració%20de%20Classofty%20Indicadors&body=Hola%2C%0A%0AM'interessa%20conèixer%20millor%20Classofty%20Indicadors%20i%20voldria%20demanar%20una%20sessió%20de%20demostració%20personalitzada.%0A%0AGràcies.">Demanar la sessió</a>
-      <a class="btn btn-s" href="#situa">Tornar a la comparació</a>
+      <a class="btn btn-s" href="#situa">Fer l'informe del centre</a>
     </div>
   </div>
 </section>
@@ -1023,71 +1043,125 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
   }, {threshold:.35});
   pio.observe(panel);
 
-  /* ---------- comparator ---------- */
-  var REFS = [
-    {n:"Abandonament a 1r de GM", ref:14.8, min:0, max:30, millor:"baix", nota:"Referència del conjunt de Catalunya, curs 2020-2021. Dos terços de l'abandonament es concentren al primer curs, cosa que fa que aquest indicador s'hagi de llegir per cicle i no per centre."},
-    {n:"Inserció laboral, GM", ref:41.9, min:0, max:100, millor:"alt", nota:"Referència de la 18a edició de l'estudi d'inserció, 2025. La inserció depèn molt de la família professional, de manera que la mitjana del centre amaga diferències importants entre cicles."},
-    {n:"Inserció laboral, GS", ref:66.8, min:0, max:100, millor:"alt", nota:"Referència de la 18a edició de l'estudi d'inserció, 2025. Cal llegir-la al costat de la continuïtat formativa: qui segueix estudiant no consta com a inserit."},
-    {n:"Inserció laboral, FP dual", ref:67.4, min:0, max:100, millor:"alt", nota:"Referència de la 18a edició de l'estudi d'inserció, 2025, davant del 48,3% del model amb formació en centres de treball."},
-    {n:"Continuïtat de GM a GS", ref:85.9, min:0, max:100, millor:"alt", nota:"Referència de la 18a edició de l'estudi d'inserció, 2025. Un valor alt aquí matisa una inserció baixa a grau mitjà, perquè bona part de la promoció continua estudiant."}
+  /* ---------- situa: informe ràpid ---------- */
+  var SIT = [
+    {k:"ab", n:"Abandonament a 1r de GM", ref:14.8, lower:true, font:"Catalunya, curs 2020-2021",
+      o:[["< 8%",0,8],["8–12%",8,12],["12–16%",12,16],["16–20%",16,20],["> 20%",20,30]]},
+    {k:"igm", n:"Inserció laboral, GM", ref:41.9, font:"Catalunya, estudi d'inserció 2025",
+      o:[["< 30%",15,30],["30–40%",30,40],["40–50%",40,50],["50–60%",50,60],["> 60%",60,75]]},
+    {k:"igs", n:"Inserció laboral, GS", ref:66.8, font:"Catalunya, estudi d'inserció 2025",
+      o:[["< 50%",35,50],["50–60%",50,60],["60–70%",60,70],["70–80%",70,80],["> 80%",80,95]]},
+    {k:"dual", n:"Inserció laboral, FP dual", ref:67.4, font:"Catalunya, estudi d'inserció 2025",
+      o:[["< 50%",35,50],["50–60%",50,60],["60–70%",60,70],["70–80%",70,80],["> 80%",80,95]]},
+    {k:"cont", n:"Continuïtat de GM a GS", ref:85.9, font:"Catalunya, estudi d'inserció 2025",
+      o:[["< 70%",55,70],["70–80%",70,80],["80–90%",80,90],["> 90%",90,100]]}
   ];
-  var chips = document.getElementById("chips"),
-      slider = document.getElementById("slider"),
-      fill = document.getElementById("fill"),
-      tick = document.getElementById("reftick"),
-      reflab = document.getElementById("reflab"),
-      cval = document.getElementById("cval"),
-      verdict = document.getElementById("verdict"),
-      cnote = document.getElementById("cnote"),
-      axmin = document.getElementById("axmin"),
-      axmax = document.getElementById("axmax"),
-      cur = 0;
+  var qform = document.getElementById("qform"), repchart = document.getElementById("repchart"),
+      rephead = document.getElementById("rephead"), replist = document.getElementById("replist"),
+      repmail = document.getElementById("repmail"), sel = {};
+  function fmt(x){ return x.toFixed(1).replace(".", ","); }
 
-  REFS.forEach(function(r, i){
-    var b = document.createElement("button");
-    b.className = "chip" + (i===0 ? " on" : "");
-    b.type = "button";
-    b.textContent = r.n;
-    b.addEventListener("click", function(){
-      cur = i;
-      chips.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("on"); });
-      b.classList.add("on");
-      setup();
+  SIT.forEach(function(q){
+    var row = document.createElement("div"); row.className = "qrow";
+    row.innerHTML = '<div class="qlab">'+q.n+'</div><div class="qref">Referència: '+fmt(q.ref)+'% · '+q.font+'</div>';
+    var opts = document.createElement("div"); opts.className = "opts";
+    q.o.concat([["No ho sé"]]).forEach(function(o, i){
+      var b = document.createElement("button"); b.type = "button";
+      var nk = i === q.o.length;
+      b.className = "opt" + (nk ? " nk" : ""); b.textContent = o[0];
+      b.addEventListener("click", function(){
+        var again = sel[q.k] === i;
+        opts.querySelectorAll(".opt").forEach(function(x){ x.classList.remove("sel"); });
+        if(again){ delete sel[q.k]; } else { sel[q.k] = i; b.classList.add("sel"); }
+        report();
+      });
+      opts.appendChild(b);
     });
-    chips.appendChild(b);
+    row.appendChild(opts); qform.appendChild(row);
+  });
+  document.getElementById("represet").addEventListener("click", function(){
+    sel = {}; qform.querySelectorAll(".opt").forEach(function(x){ x.classList.remove("sel"); }); report();
   });
 
-  function setup(){
-    var r = REFS[cur];
-    slider.min = r.min; slider.max = r.max;
-    slider.step = (r.max - r.min) > 50 ? 0.5 : 0.1;
-    slider.value = r.ref;
-    axmin.textContent = r.min + "%"; axmax.textContent = r.max + "%";
-    var p = (r.ref - r.min) / (r.max - r.min) * 100;
-    tick.style.left = p + "%";
-    reflab.style.left = p + "%";
-    reflab.textContent = "Catalunya " + r.ref.toFixed(r.ref % 1 === 0 ? 0 : 1).replace(".", ",") + "%";
-    render();
+  function state(q){
+    var i = sel[q.k];
+    if(i === undefined) return {s:"none"};
+    if(i === q.o.length) return {s:"nk"};
+    var o = q.o[i], a = o[1]-q.ref, b = o[2]-q.ref;
+    if(q.lower){ var t = -b; b = -a; a = t; }
+    return {s: b <= 0 ? "sota" : (a >= 0 ? "sobre" : "prop"), a:a, b:b, lab:o[0]};
+  }
+  var COL = {sobre:"var(--success)", sota:"var(--error)", prop:"var(--accent)"};
+  var TXT = {sobre:"millor que Catalunya", sota:"pitjor que Catalunya", prop:"similar a Catalunya"};
+
+  function drawChart(){
+    var W = Math.max(280, repchart.clientWidth || 480), wide = W >= 440;
+    var lw = wide ? 160 : 0, x0 = lw + 8, x1 = W - 8, cx = (x0+x1)/2, sc = (x1-x0)/2/25;
+    var rh = wide ? 42 : 52, top = 30, H = top + SIT.length*rh + 6;
+    var s = '<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img" aria-label="Posició del centre respecte de Catalunya per indicador">';
+    s += '<text x="'+x0+'" y="12">← pitjor</text><text x="'+x1+'" y="12" text-anchor="end">millor →</text>';
+    s += '<text x="'+cx+'" y="12" text-anchor="middle" class="rl">Catalunya</text>';
+    SIT.forEach(function(q, r){
+      var st = state(q), y = top + r*rh, by = wide ? y + 12 : y + 24;
+      var ly = wide ? y + 17 : y + 12;
+      s += '<text x="0" y="'+ly+'" class="rl">'+q.n+'</text>';
+      var sub = st.s === "nk" ? "sense dada" : (st.lab ? (wide ? st.lab+" · Cat. "+fmt(q.ref)+"%" : st.lab) : "—");
+      if(wide) s += '<text x="0" y="'+(ly+14)+'">'+sub+'</text>';
+      else s += '<text x="'+x1+'" y="'+ly+'" text-anchor="end">'+sub+'</text>';
+      s += '<rect x="'+x0+'" y="'+by+'" width="'+(x1-x0)+'" height="14" rx="7" style="fill:var(--bg);stroke:var(--border)"'+(st.s==="nk"?' stroke-dasharray="4 3"':'')+'/>';
+      if(st.a !== undefined){
+        var a = Math.max(-25, st.a), b = Math.min(25, st.b), xa = cx + a*sc, xb = cx + b*sc;
+        s += '<rect class="bandr" x="'+xa+'" y="'+(by+2)+'" width="'+Math.max(4, xb-xa)+'" height="10" rx="5" style="fill:'+COL[st.s]+'"/>';
+      }
+    });
+    SIT.forEach(function(q, r){ var y = top + r*rh, by = wide ? y + 12 : y + 24;
+      s += '<line x1="'+cx+'" y1="'+(wide && r===0 ? 18 : by-4)+'" x2="'+cx+'" y2="'+(wide && r<SIT.length-1 ? by+rh : by+18)+'" style="stroke:var(--text)" stroke-width="1.5" stroke-dasharray="3 3" opacity=".6"/>'; });
+    if(!wide) s += '<line x1="'+cx+'" y1="18" x2="'+cx+'" y2="22" style="stroke:var(--text)" stroke-width="1.5" opacity=".6"/>';
+    repchart.innerHTML = s + '</svg>';
   }
 
-  function render(){
-    var r = REFS[cur], v = parseFloat(slider.value);
-    fill.style.width = ((v - r.min) / (r.max - r.min) * 100) + "%";
-    cval.textContent = v.toFixed(1).replace(".", ",") + "%";
-    var d = v - r.ref, ad = Math.abs(d).toFixed(1).replace(".", ",");
-    if(Math.abs(d) < 0.05){
-      verdict.className = "verdict";
-      verdict.textContent = "Mou el punt fins al valor del teu centre.";
-    } else {
-      var millorSiBaix = r.millor === "baix";
-      var favorable = millorSiBaix ? d < 0 : d > 0;
-      verdict.className = "verdict " + (favorable ? "good" : "bad");
-      verdict.textContent = ad + " punts " + (d < 0 ? "per sota" : "per sobre") + " de la referència catalana.";
+  function report(){
+    drawChart();
+    var st = {}, c = {sobre:0, prop:0, sota:0, nk:0}, known = 0, nks = [];
+    SIT.forEach(function(q){ st[q.k] = state(q); var s = st[q.k].s;
+      if(s in c) c[s]++; if(s==="sobre"||s==="prop"||s==="sota") known++; if(s==="nk") nks.push(q.n.charAt(0).toLowerCase()+q.n.slice(1)); });
+    var L = [];
+    if(known === 0 && c.nk === 0){
+      rephead.textContent = "Marca almenys un indicador per veure la imatge del centre.";
+      replist.innerHTML = ""; repmail.classList.add("off"); return;
     }
-    cnote.textContent = r.nota;
+    if(known === 0){ rephead.textContent = "No tens a mà cap d'aquestes dades."; }
+    else if(c.sobre === known){ rephead.textContent = "El centre està millor que la referència catalana en tots els indicadors que has marcat."; }
+    else if(c.sota === known){ rephead.textContent = "El centre està pitjor que la referència catalana en tots els indicadors que has marcat."; }
+    else if(c.prop === known){ rephead.textContent = "El centre està a la mitjana de Catalunya en tots els indicadors que has marcat."; }
+    else {
+      var p = [];
+      if(c.sobre) p.push(c.sobre+(c.sobre>1?" són millors":" és millor"));
+      if(c.prop) p.push(c.prop+(c.prop>1?" són":" és")+" a la mitjana");
+      if(c.sota) p.push(c.sota+(c.sota>1?" són pitjors":" és pitjor"));
+      rephead.textContent = "Respecte de la referència catalana, dels "+known+" indicadors "+p.slice(0,-1).join(", ")+(p.length>1?" i ":"")+p[p.length-1]+".";
+    }
+    var ab = st.ab.s, igm = st.igm.s, cont = st.cont.s;
+    if(ab==="sota") L.push("L'abandonament a primer és el punt més urgent. A Catalunya, dos terços de l'abandonament de grau mitjà es concentren al primer curs: el primer que cal saber és en quins cicles i en quin trimestre passa.");
+    if(ab==="sobre") L.push("L'abandonament a primer és per sota de la mitjana catalana. Convé saber quina part es deu a l'acollida i quina a l'alumnat que entra: si canvia la cohort, pot pujar sense que el centre hagi fet res diferent.");
+    if(ab==="prop") L.push("L'abandonament a primer està a la mitjana catalana. Mirat cicle per cicle, sovint hi ha un o dos grups que la pugen.");
+    if(igm==="sota" && (cont==="sobre"||cont==="prop")) L.push("La inserció de grau mitjà per sota queda matisada per la continuïtat: bona part de la promoció segueix a grau superior i no consta com a inserida.");
+    if(igm==="sota" && cont==="sota") L.push("Inserció i continuïtat per sota alhora és la combinació que més cal mirar: podria voler dir que una part de la promoció ni treballa ni estudia després de titular.");
+    if(igm==="sota" && (cont==="none"||cont==="nk")) L.push("La inserció de grau mitjà per sota s'ha de llegir al costat de la continuïtat a grau superior: sense aquesta dada no se sap si és un problema o si la promoció continua estudiant.");
+    if(st.igs.s==="sota") L.push("La inserció de grau superior depèn molt de la família professional. Abans de treure conclusions cal veure-la cicle per cicle.");
+    if(st.dual.s==="sota") L.push("La dual per sota de la referència és poc habitual, perquè a Catalunya és la modalitat amb més inserció. Mirar-la per empresa col·laboradora sol explicar-ho.");
+    if(c.sobre >= 3 && c.sota === 0) L.push("Amb aquests resultats, el repte del projecte de direcció és demostrar que es mantenen i saber quines mesures els expliquen.");
+    if(nks.length) L.push("No tens dada de "+(nks.length>1 ? nks.slice(0,-1).join(", ")+" i "+nks[nks.length-1] : nks[0])+". És habitual: sovint són al projecte de direcció però ningú els calcula cada any.");
+    replist.innerHTML = L.slice(0,4).map(function(t){ return "<li>"+t+"</li>"; }).join("");
+    var body = "Hola,\n\nHe fet l'informe ràpid del centre a classofty.cat:\n";
+    SIT.forEach(function(q){ var s = st[q.k]; if(s.s==="none") return;
+      body += "- "+q.n+": "+(s.s==="nk" ? "no ho sé" : s.lab+" ("+TXT[s.s]+")")+"\n"; });
+    body += "\nM'agradaria veure'n una sessió de demostració.\n";
+    repmail.href = "mailto:rogerubia@classofty.com?subject="+encodeURIComponent("Informe ràpid del centre · Classofty Indicadors")+"&body="+encodeURIComponent(body);
+    repmail.classList.remove("off");
   }
-  slider.addEventListener("input", render);
-  setup();
+  var rsT; window.addEventListener("resize", function(){ clearTimeout(rsT); rsT = setTimeout(drawChart, 150); });
+  report();
 
   /* ---------- fitxa de l'indicador ---------- */
   var indcard = document.getElementById("indcard"), bignum = document.getElementById("bignum");
