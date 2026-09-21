@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classofty Indicadors — el quadre de comandament del projecte de direcció</title>
+<meta name="description" content="Els indicadors que vas comprometre al projecte de direcció, calculats de manera contínua i mesurats contra l'objectiu que vas escriure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#2563EB; --primary-dark:#1D4ED8; --primary-light:#DBEAFE;
+  --accent:#F59E0B; --accent-light:#FEF3C7;
+  --success:#10B981; --success-light:#D1FAE5;
+  --error:#EF4444; --error-light:#FEE2E2;
+  --surface:#FFFFFF; --bg:#F1F5F9; --border:#E2E8F0;
+  --text:#0F172A; --text-sec:#64748B; --text-dis:#94A3B8;
+  --shadow:0 1px 2px rgba(15,23,42,.04), 0 8px 24px -12px rgba(15,23,42,.12);
+  --shadow-lg:0 2px 4px rgba(15,23,42,.04), 0 24px 48px -20px rgba(15,23,42,.22);
+  --radius:14px; --maxw:1120px;
+}
+:root[data-theme="dark"]{
+  --surface:#1E293B; --bg:#0F172A; --border:#334155;
+  --text:#F8FAFC; --text-sec:#94A3B8; --text-dis:#64748B;
+  --primary-light:#1E3A8A; --accent-light:#422006;
+  --success-light:#052e24; --error-light:#450a0a;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.4), 0 24px 48px -20px rgba(0,0,0,.7);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --surface:#1E293B; --bg:#0F172A; --border:#334155;
+    --text:#F8FAFC; --text-sec:#94A3B8; --text-dis:#64748B;
+    --primary-light:#1E3A8A; --accent-light:#422006;
+    --success-light:#052e24; --error-light:#450a0a;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    --shadow-lg:0 2px 4px rgba(0,0,0,.4), 0 24px 48px -20px rgba(0,0,0,.7);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:16.5px; line-height:1.62; -webkit-font-smoothing:antialiased;
+  transition:background .3s ease,color .3s ease;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+h1,h2,h3,h4{line-height:1.2; letter-spacing:-.02em; margin:0}
+h1{font-size:clamp(2rem,4.6vw,3.15rem); font-weight:800}
+h2{font-size:clamp(1.55rem,3vw,2.15rem); font-weight:750}
+h3{font-size:1.14rem; font-weight:650}
+p{margin:0 0 1em}
+a{color:var(--primary); text-decoration:none}
+.muted{color:var(--text-sec)}
+.small{font-size:.875rem}
+.xsmall{font-size:.78rem}
+
+/* ---------- nav ---------- */
+header.nav{
+  position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom:1px solid var(--border);
+}
+.nav-in{display:flex; align-items:center; gap:28px; height:62px}
+.logo{display:flex; align-items:center; gap:10px; font-weight:750; letter-spacing:-.03em}
+.logo-mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--primary),#60A5FA);position:relative;flex:none}
+.logo-mark::after{content:"";position:absolute;inset:7px 7px auto 7px;height:3px;border-radius:2px;background:#fff;box-shadow:0 5px 0 rgba(255,255,255,.65), 0 10px 0 rgba(255,255,255,.35)}
+.logo span.mod{color:var(--text-sec); font-weight:500}
+.nav-links{display:flex; gap:22px; margin-left:auto; font-size:.9rem}
+.nav-links a{color:var(--text-sec); font-weight:500}
+.nav-links a:hover{color:var(--text)}
+.theme-btn{
+  border:1px solid var(--border); background:var(--surface); color:var(--text-sec);
+  width:34px;height:34px;border-radius:9px;cursor:pointer;display:grid;place-items:center;flex:none;
+}
+.theme-btn:hover{color:var(--text); border-color:var(--text-dis)}
+@media(max-width:820px){.nav-links{display:none}}
+
+/* ---------- generic section ---------- */
+section{padding:92px 0; border-top:1px solid var(--border)}
+section:first-of-type{border-top:none}
+.eyebrow{
+  display:inline-block; font-size:.74rem; font-weight:700; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--primary); margin-bottom:14px;
+}
+.lede{font-size:1.1rem; color:var(--text-sec); max-width:62ch}
+.sec-head{max-width:70ch; margin-bottom:44px}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0; transform:translateY(20px); transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1; transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:76px 0 88px; position:relative; overflow:hidden}
+.hero-grid{display:grid; grid-template-columns:1.02fr .98fr; gap:56px; align-items:center}
+@media(max-width:940px){.hero-grid{grid-template-columns:1fr; gap:42px}}
+.hero h1 em{font-style:normal; color:var(--primary)}
+.hero .lede{margin-top:20px; font-size:1.16rem}
+.cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:30px}
+.btn{
+  display:inline-flex; align-items:center; gap:9px; padding:12px 20px; border-radius:11px;
+  font-weight:600; font-size:.95rem; border:1px solid transparent; cursor:pointer; transition:.18s;
+}
+.btn-p{background:var(--primary); color:#fff}
+.btn-p:hover{background:var(--primary-dark); transform:translateY(-1px)}
+.btn-s{background:var(--surface); color:var(--text); border-color:var(--border)}
+.btn-s:hover{border-color:var(--text-dis)}
+
+/* catalogue panel */
+.panel{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+  box-shadow:var(--shadow-lg); overflow:hidden;
+}
+.panel-bar{
+  display:flex; align-items:center; gap:8px; padding:12px 16px;
+  border-bottom:1px solid var(--border); background:color-mix(in srgb,var(--bg) 60%, var(--surface));
+}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--border)}
+.panel-title{font-size:.82rem; font-weight:600; color:var(--text-sec); margin-left:6px}
+.cat-row{
+  display:grid; grid-template-columns:1fr auto auto; gap:12px; align-items:center;
+  padding:13px 16px; border-bottom:1px solid var(--border); font-size:.89rem;
+}
+.cat-row:last-child{border-bottom:none}
+.cat-name{font-weight:500}
+.cat-val{
+  font-variant-numeric:tabular-nums; font-weight:700; color:var(--text-dis);
+  min-width:62px; text-align:right; transition:color .4s ease;
+}
+.cat-row.filled .cat-val{color:var(--text)}
+.cat-val .sd{font-size:.78rem; font-weight:600; letter-spacing:.04em}
+.led{width:8px;height:8px;border-radius:50%;background:var(--border); transition:background .5s ease, box-shadow .5s ease}
+.cat-row.filled .led{background:var(--success); box-shadow:0 0 0 3px var(--success-light)}
+.cat-row.filled.warn .led{background:var(--accent); box-shadow:0 0 0 3px var(--accent-light)}
+.panel-foot{padding:11px 16px; font-size:.74rem; color:var(--text-dis); background:color-mix(in srgb,var(--bg) 60%, var(--surface)); border-top:1px solid var(--border)}
+
+/* ---------- stats ---------- */
+.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:12px}
+@media(max-width:860px){.stats{grid-template-columns:1fr}}
+.stat{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+  padding:26px 24px; box-shadow:var(--shadow); position:relative; overflow:hidden;
+}
+.stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--primary);opacity:.85}
+.stat .num{font-size:2.6rem; font-weight:800; letter-spacing:-.04em; font-variant-numeric:tabular-nums; line-height:1}
+.stat .cap{margin-top:10px; font-weight:600; font-size:.95rem}
+.stat .src{margin-top:7px; font-size:.76rem; color:var(--text-dis)}
+
+/* ---------- comparator ---------- */
+.cmp{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-lg); padding:30px; }
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:26px}
+.chip{
+  padding:8px 14px; border-radius:999px; border:1px solid var(--border); background:transparent;
+  font:inherit; font-size:.85rem; font-weight:550; color:var(--text-sec); cursor:pointer; transition:.16s;
+}
+.chip:hover{border-color:var(--text-dis); color:var(--text)}
+.chip.on{background:var(--primary); border-color:var(--primary); color:#fff}
+.scale-wrap{margin:48px 0 6px; position:relative}
+.scale{position:relative; height:12px; border-radius:999px; background:var(--bg); border:1px solid var(--border)}
+.scale-fill{position:absolute; inset:0 auto 0 0; border-radius:999px; background:linear-gradient(90deg,var(--primary),#60A5FA); width:0; transition:width .35s cubic-bezier(.2,.7,.3,1)}
+.ref-tick{position:absolute; top:-9px; bottom:-9px; width:2px; background:var(--text); opacity:.75; transition:left .35s ease}
+.ref-lab{
+  position:absolute; top:-40px; transform:translateX(-50%); white-space:nowrap;
+  font-size:.72rem; font-weight:650; background:var(--text); color:var(--bg);
+  padding:3px 8px; border-radius:6px; transition:left .35s ease;
+}
+.ref-lab::after{content:"";position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--text)}
+input[type=range]{
+  -webkit-appearance:none; appearance:none; background:transparent; margin:0;
+  position:absolute; left:0; right:0; top:-5px; width:100%; height:22px;
+  z-index:3; cursor:grab;
+}
+input[type=range]:active{cursor:grabbing}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:transparent}
+input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:transparent}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none; width:22px;height:22px;border-radius:50%; margin-top:-9px;
+  background:var(--surface); border:3px solid var(--primary); box-shadow:var(--shadow);
+}
+input[type=range]::-moz-range-thumb{
+  width:22px;height:22px;border-radius:50%;background:var(--surface);border:3px solid var(--primary);box-shadow:var(--shadow)
+}
+.cmp-read{display:grid; grid-template-columns:auto 1fr; gap:26px; align-items:center; margin-top:26px; padding-top:24px; border-top:1px solid var(--border)}
+@media(max-width:700px){.cmp-read{grid-template-columns:1fr; gap:14px}}
+.cmp-val{font-size:2.5rem; font-weight:800; letter-spacing:-.04em; font-variant-numeric:tabular-nums; line-height:1}
+.verdict{font-weight:600}
+.verdict.good{color:var(--success)}
+.verdict.bad{color:var(--error)}
+.cmp-note{font-size:.84rem; color:var(--text-sec); margin-top:4px}
+.axis{display:flex; justify-content:space-between; font-size:.74rem; color:var(--text-dis); margin-top:22px}
+
+/* ---------- tipus cards ---------- */
+.four{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+@media(max-width:940px){.four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.four{grid-template-columns:1fr}}
+.tcard{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+  padding:24px 22px; cursor:pointer; transition:.22s; box-shadow:var(--shadow);
+  display:flex; flex-direction:column;
+}
+.tcard:hover{transform:translateY(-3px); border-color:var(--primary)}
+.tcard .k{font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--text-dis)}
+.tcard h3{margin:8px 0 8px}
+.tcard .body{color:var(--text-sec); font-size:.9rem}
+.tcard .body b{color:var(--text); font-weight:650}
+.tcard .more{max-height:0; overflow:hidden; transition:max-height .45s cubic-bezier(.2,.7,.3,1)}
+.tcard.open .more{max-height:280px}
+.tcard .more ul{margin:14px 0 0; padding-left:18px; font-size:.87rem; color:var(--text-sec)}
+.tcard .more li{margin-bottom:5px}
+.tcard .toggle{margin-top:auto; padding-top:16px; font-size:.8rem; font-weight:650; color:var(--primary)}
+
+/* ---------- anatomia ---------- */
+.anat{display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start}
+@media(max-width:940px){.anat{grid-template-columns:1fr}}
+.ind-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-lg); overflow:hidden}
+.ind-head{padding:22px 24px 6px}
+.ind-code{font-size:.72rem; font-weight:700; letter-spacing:.09em; color:var(--text-dis)}
+.ind-title{font-size:1.06rem; font-weight:650; margin:6px 0 0}
+.ind-body{padding:14px 24px 24px}
+.ind-numbers{display:flex; align-items:flex-end; gap:20px; flex-wrap:wrap}
+.big-num{
+  font-size:3.2rem; font-weight:800; letter-spacing:-.045em; line-height:1; font-variant-numeric:tabular-nums;
+  background:none; border:none; padding:0; color:var(--text); cursor:pointer; font-family:inherit;
+  border-bottom:2px dashed var(--text-dis); transition:.2s;
+}
+.big-num:hover{color:var(--primary); border-bottom-color:var(--primary)}
+.arrowto{color:var(--text-dis); font-size:1.3rem; padding-bottom:6px}
+.goal{font-size:1.5rem; font-weight:700; color:var(--text-sec); padding-bottom:3px; font-variant-numeric:tabular-nums}
+.track{height:8px; border-radius:999px; background:var(--bg); border:1px solid var(--border); margin-top:20px; position:relative; overflow:hidden}
+.track i{position:absolute; inset:0 auto 0 0; width:0; background:var(--accent); border-radius:999px; transition:width 1.2s cubic-bezier(.2,.7,.3,1)}
+.hint{margin-top:12px; font-size:.8rem; color:var(--text-dis)}
+.fitxa{max-height:0; overflow:hidden; transition:max-height .5s cubic-bezier(.2,.7,.3,1); border-top:1px solid transparent}
+.ind-card.open .fitxa{max-height:620px; border-top-color:var(--border)}
+.frow{display:grid; grid-template-columns:132px 1fr; gap:14px; padding:11px 24px; border-bottom:1px solid var(--border); font-size:.86rem}
+.frow:last-child{border-bottom:none}
+.frow b{font-weight:600; color:var(--text-sec)}
+.frow code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.82rem; background:var(--bg); padding:2px 6px; border-radius:5px; border:1px solid var(--border)}
+
+/* ---------- steps ---------- */
+.steps{position:relative; padding-left:34px}
+.steps::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:var(--border)}
+.steps-prog{position:absolute;left:9px;top:8px;width:2px;background:var(--primary);height:0;transition:height .25s linear}
+.step{position:relative; padding:0 0 32px}
+.step:last-child{padding-bottom:0}
+.step::before{
+  content:""; position:absolute; left:-30px; top:7px; width:12px;height:12px;border-radius:50%;
+  background:var(--bg); border:2px solid var(--border); transition:.3s;
+}
+.step.on::before{border-color:var(--primary); background:var(--primary); box-shadow:0 0 0 4px var(--primary-light)}
+.step h3{margin-bottom:5px}
+.step p{color:var(--text-sec); font-size:.93rem; margin:0}
+
+/* ---------- modes ---------- */
+.modes{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:26px; box-shadow:var(--shadow)}
+.seg{display:inline-flex; background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:3px; margin-bottom:20px}
+.seg button{
+  font:inherit; font-size:.87rem; font-weight:600; padding:7px 16px; border-radius:8px;
+  border:none; background:transparent; color:var(--text-sec); cursor:pointer; transition:.2s;
+}
+.seg button.on{background:var(--surface); color:var(--text); box-shadow:var(--shadow)}
+.mode-body{font-size:.93rem; color:var(--text-sec)}
+.mode-body b{color:var(--text)}
+.flowline{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px}
+.node{padding:8px 14px; border-radius:9px; border:1px solid var(--border); background:var(--bg); font-size:.83rem; font-weight:600}
+.node.hl{background:var(--primary-light); border-color:var(--primary); color:var(--primary-dark)}
+:root[data-theme="dark"] .node.hl{color:#BFDBFE}
+.arrow{color:var(--text-dis)}
+
+/* ---------- document ---------- */
+.docgrid{display:grid; grid-template-columns:1fr .85fr; gap:44px; align-items:center}
+@media(max-width:940px){.docgrid{grid-template-columns:1fr}}
+.sheet{
+  background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:28px;
+  box-shadow:var(--shadow-lg); transform:rotate(-1deg); transition:transform .4s ease;
+}
+.sheet:hover{transform:rotate(0)}
+.sheet .sh-t{font-weight:750; font-size:1rem; letter-spacing:-.02em}
+.sheet .sh-s{font-size:.76rem; color:var(--text-dis); margin-bottom:18px}
+.sh-line{height:7px; border-radius:4px; background:var(--border); margin-bottom:9px}
+.sh-tab{display:grid; grid-template-columns:1fr 54px 54px 22px; gap:9px; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:.78rem}
+.sh-tab .b{height:6px;border-radius:3px;background:var(--border)}
+.sh-pill{height:14px;border-radius:4px}
+.ok{background:var(--success-light); border:1px solid var(--success)}
+.warnp{background:var(--accent-light); border:1px solid var(--accent)}
+
+/* ---------- privacy ---------- */
+.privacy{
+  background:linear-gradient(135deg,var(--primary),#1E40AF); color:#fff;
+  border-radius:20px; padding:56px 44px; box-shadow:var(--shadow-lg);
+}
+.privacy h2{color:#fff; max-width:22ch}
+.privacy .lede{color:rgba(255,255,255,.82)}
+.pgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:34px}
+@media(max-width:860px){.pgrid{grid-template-columns:1fr}}
+.pgrid div{border-top:2px solid rgba(255,255,255,.3); padding-top:14px}
+.pgrid b{display:block; font-size:.95rem; margin-bottom:5px}
+.pgrid span{font-size:.87rem; color:rgba(255,255,255,.8)}
+
+/* ---------- limits ---------- */
+.lim{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+@media(max-width:860px){.lim{grid-template-columns:1fr}}
+.lcard{background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--error); border-radius:var(--radius); padding:24px}
+.lcard h3{margin-bottom:8px}
+.lcard p{font-size:.9rem; color:var(--text-sec); margin:0}
+
+/* ---------- cta ---------- */
+.cta{text-align:center; padding:96px 0}
+.cta h2{max-width:20ch; margin:0 auto 18px}
+.cta .lede{margin:0 auto 30px; text-align:center}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--border); padding:44px 0 60px; font-size:.83rem; color:var(--text-sec)}
+footer h4{font-size:.74rem; text-transform:uppercase; letter-spacing:.1em; color:var(--text-dis); margin-bottom:12px}
+footer ol{margin:0; padding-left:18px}
+footer li{margin-bottom:7px}
+footer a{color:var(--text-sec); text-decoration:underline; text-underline-offset:2px}
+sup a{text-decoration:none; font-weight:700; color:var(--primary)}
+
+/* ---------- panell amb hotspots ---------- */
+.shotwrap{display:grid; grid-template-columns:1.25fr .75fr; gap:36px; align-items:center}
+@media(max-width:940px){.shotwrap{grid-template-columns:1fr}}
+.dash{position:relative; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-lg); padding:20px 22px 24px}
+.dash-top{display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:14px; border-bottom:1px solid var(--border); margin-bottom:16px}
+.dash-t{font-weight:650; font-size:.94rem}
+.trims{display:inline-flex; gap:3px; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:3px}
+.trims span{font-size:.72rem; font-weight:600; color:var(--text-dis); padding:3px 9px; border-radius:6px}
+.trims span.on{background:var(--surface); color:var(--text); box-shadow:var(--shadow)}
+.drow{display:grid; grid-template-columns:1fr 70px 70px 34px; gap:10px; align-items:center; padding:10px 0; border-bottom:1px solid var(--border); font-size:.83rem}
+.drow:last-child{border-bottom:none}
+.drow .dn{font-weight:500}
+.drow .dv{font-variant-numeric:tabular-nums; font-weight:700; text-align:right}
+.drow .do{font-variant-numeric:tabular-nums; color:var(--text-dis); text-align:right; font-size:.78rem}
+.drow .ds{justify-self:end; display:flex; align-items:center; gap:5px}
+.bar{height:5px; border-radius:3px; background:var(--border); width:26px; overflow:hidden; position:relative}
+.bar i{position:absolute; inset:0 auto 0 0; border-radius:3px}
+.pend{font-size:.7rem; font-weight:700; letter-spacing:.05em; color:var(--accent); background:var(--accent-light); border-radius:5px; padding:2px 6px}
+:root[data-theme="dark"] .pend{color:#FCD34D}
+.hs{
+  position:absolute; width:24px; height:24px; border-radius:50%; padding:0; cursor:pointer;
+  border:2px solid var(--surface); background:var(--primary); z-index:4;
+  display:grid; place-items:center; color:#fff; font-size:.7rem; font-weight:700; font-family:inherit;
+}
+.hs::before{
+  content:""; position:absolute; inset:-2px; border-radius:50%; background:var(--primary);
+  animation:sonar 2.6s ease-out infinite; z-index:-1;
+}
+.hs:nth-of-type(2)::before{animation-delay:.65s}
+.hs:nth-of-type(3)::before{animation-delay:1.3s}
+.hs:nth-of-type(4)::before{animation-delay:1.95s}
+.hs.on, .hs:hover{background:var(--text)}
+.hs.on::before, .hs:hover::before{animation:none}
+@keyframes sonar{0%{transform:scale(1); opacity:.5} 70%{transform:scale(2.7); opacity:0} 100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.hs::before{animation:none}}
+@media(max-width:700px){
+  .hs{width:22px; height:22px; font-size:.66rem}
+  .hs[data-h="0"]{left:58% !important; top:27% !important}
+  .hs[data-h="1"]{left:56% !important; top:7% !important}
+  .hs[data-h="2"]{left:19% !important; top:43% !important}
+  .hs[data-h="3"]{left:32% !important; top:87% !important}
+}
+.hs-note{min-height:150px}
+.hs-note .k{font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--primary); margin-bottom:8px; display:block}
+.hs-note h3{margin-bottom:8px}
+.hs-note p{color:var(--text-sec); font-size:.93rem; margin:0}
+.hs-hint{margin-top:16px; font-size:.78rem; color:var(--text-dis)}
+
+/* ---------- integracions ---------- */
+.intg{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:8px}
+@media(max-width:860px){.intg{grid-template-columns:1fr}}
+.icard{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow)}
+.icard h3{font-size:1rem; margin-bottom:7px}
+.icard p{font-size:.88rem; color:var(--text-sec); margin:0}
+.claim{
+  margin-top:28px; padding:22px 24px; border-radius:var(--radius);
+  background:var(--primary-light); border:1px solid var(--primary); font-size:1rem; font-weight:600;
+}
+:root[data-theme="dark"] .claim{color:#DBEAFE}
+
+/* ---------- faq ---------- */
+.faq{border-top:1px solid var(--border)}
+.q{border-bottom:1px solid var(--border)}
+.q button{
+  width:100%; text-align:left; background:none; border:none; font:inherit; color:var(--text);
+  font-weight:600; font-size:1rem; padding:20px 44px 20px 0; cursor:pointer; position:relative;
+}
+.q button::after{
+  content:"+"; position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  font-size:1.4rem; font-weight:400; color:var(--text-dis); transition:transform .3s ease, color .2s;
+}
+.q.open button::after{content:"+"; transform:translateY(-50%) rotate(45deg); color:var(--primary)}
+.q button:hover{color:var(--primary)}
+.a{max-height:0; overflow:hidden; transition:max-height .42s cubic-bezier(.2,.7,.3,1)}
+.q.open .a{max-height:300px}
+.a p{color:var(--text-sec); font-size:.94rem; padding:0 40px 20px 0; margin:0}
+
+/* ---------- entrada escalonada ---------- */
+.stg > *{opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1)}
+.stg.in > *{opacity:1; transform:none}
+.stg > *:nth-child(2){transition-delay:.09s}
+.stg > *:nth-child(3){transition-delay:.18s}
+.stg > *:nth-child(4){transition-delay:.27s}
+.sec-head.rv{transform:none}
+@media (prefers-reduced-motion:reduce){.stg > *{opacity:1; transform:none; transition:none}}
+
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <div class="logo"><span class="logo-mark"></span>Classofty <span class="mod">Indicadors</span></div>
+    <nav class="nav-links">
+      <a href="#problema">El problema</a>
+      <a href="#situa">Situa el centre</a>
+      <a href="#indicador">L'indicador</a>
+      <a href="#panell">El panell</a>
+      <a href="#conviu">Encaix</a>
+      <a href="#faq">Preguntes</a>
+    </nav>
+    <button class="theme-btn" id="theme" title="Canvia el tema" aria-label="Canvia el tema">◐</button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Mòdul d'indicadors</span>
+      <h1>Els indicadors que vas escriure al projecte de direcció, <em>amb valor</em>.</h1>
+      <p class="lede">Al projecte de direcció hi vas escriure uns objectius amb els seus indicadors, i cada any n'has de donar comptes al claustre, al consell escolar i a la Inspecció. Escriure'ls va costar unes setmanes. Calcular-los cada trimestre costa creuar a mà fulls de càlcul que fa cadascú, i torna a costar el mateix el trimestre següent.</p>
+      <div class="cta-row">
+        <a class="btn btn-p" href="#situa">Provar-ho amb el teu centre</a>
+        <a class="btn btn-s" href="#funciona">Com funciona</a>
+      </div>
+    </div>
+
+    <div class="panel rv" id="catpanel">
+      <div class="panel-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="panel-title">Catàleg d'indicadors · càlcul</span>
+      </div>
+      <div class="cat-row" data-val="14,8%"><span class="cat-name">Abandonament a 1r de grau mitjà</span><span class="cat-val"><span class="sd">SD</span></span><span class="led"></span></div>
+      <div class="cat-row" data-val="4,7%"><span class="cat-name">Abandonament a batxillerat</span><span class="cat-val"><span class="sd">SD</span></span><span class="led"></span></div>
+      <div class="cat-row" data-val="41,9%" data-warn="1"><span class="cat-name">Inserció laboral, grau mitjà</span><span class="cat-val"><span class="sd">SD</span></span><span class="led"></span></div>
+      <div class="cat-row" data-val="66,8%"><span class="cat-name">Inserció laboral, grau superior</span><span class="cat-val"><span class="sd">SD</span></span><span class="led"></span></div>
+      <div class="cat-row" data-val="67,4%"><span class="cat-name">Inserció laboral, FP dual</span><span class="cat-val"><span class="sd">SD</span></span><span class="led"></span></div>
+      <div class="cat-row" data-val="85,9%"><span class="cat-name">Continuïtat de grau mitjà a superior</span><span class="cat-val"><span class="sd">SD</span></span><span class="led"></span></div>
+      <div class="panel-foot">Valors de referència del conjunt de Catalunya, no d'un centre concret. Fonts <a href="#fonts">1</a>, <a href="#fonts">2</a> i <a href="#fonts">3</a>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEMA ============ -->
+<section id="problema">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">El problema</span>
+      <h2>Els indicadors s'escriuen una vegada. Les dades s'han de buscar cada trimestre.</h2>
+      <p class="lede">Un catàleg pot tenir tretze indicadors o cent vint-i-cinc. El que decideix si serveix és quants en tens calculats el dia de la reunió, amb la mateixa definició del curs passat. Els que es queden sense valor no és perquè ningú els vulgui amagar: és que omplir-los vol dir anar a buscar dades a quatre llocs diferents, i aquesta feina no consta enlloc com a tasca de ningú.</p>
+    </div>
+
+    <div class="stats stg">
+      <div class="stat">
+        <div class="num" data-count="13.5" data-dec="1" data-suf="%">0%</div>
+        <div class="cap">Abandonament educatiu prematur a Catalunya</div>
+        <div class="src">Dada del 2025, mínim històric. L'objectiu europeu per al 2030 és el 9%.<sup><a href="#fonts">1</a></sup></div>
+      </div>
+      <div class="stat">
+        <div class="num" data-count="14.8" data-dec="1" data-suf="%">0%</div>
+        <div class="cap">Abandonament als cicles de grau mitjà</div>
+        <div class="src">Davant del 4,7% del batxillerat. Dos terços es concentren al primer curs.<sup><a href="#fonts">2</a></sup></div>
+      </div>
+      <div class="stat">
+        <div class="num" data-count="75982" data-dec="0" data-suf="">0</div>
+        <div class="cap">Alumnes a primer curs de grau mitjà i superior</div>
+        <div class="src">Curs 2025-2026. Les sol·licituds de grau mitjà han crescut un 47% en cinc cursos.<sup><a href="#fonts">3</a></sup></div>
+      </div>
+    </div>
+
+    <p class="lede rv" style="margin-top:34px">Aquestes xifres són del conjunt del sistema. Al consell escolar et preguntaran la teva, i tot seguit si és bona o dolenta. Aquesta segona pregunta no es pot respondre sense tenir una referència al costat.</p>
+  </div>
+</section>
+
+<!-- ============ SITUA ============ -->
+<section id="situa">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Comparació</span>
+      <h2>El teu 12% és bo o dolent?</h2>
+      <p class="lede">Depèn de contra què el posis. Tria un indicador, mou el punt fins al valor del teu centre i mira on cau respecte de la xifra publicada per al conjunt de Catalunya.</p>
+    </div>
+
+    <div class="cmp rv">
+      <div class="chips" id="chips"></div>
+
+      <div class="scale-wrap">
+        <div class="scale">
+          <div class="scale-fill" id="fill"></div>
+          <div class="ref-lab" id="reflab">Referència</div>
+          <div class="ref-tick" id="reftick"></div>
+        </div>
+        <input type="range" id="slider" min="0" max="100" step="0.1" value="20" aria-label="Valor del teu centre">
+        <div class="axis"><span id="axmin">0%</span><span id="axmax">100%</span></div>
+      </div>
+
+      <div class="cmp-read">
+        <div>
+          <div class="cmp-val" id="cval">—</div>
+          <div class="xsmall muted">el valor del teu centre</div>
+        </div>
+        <div>
+          <div class="verdict" id="verdict">—</div>
+          <div class="cmp-note" id="cnote"></div>
+        </div>
+      </div>
+    </div>
+    <p class="small muted rv" style="margin-top:16px">Les referències són agregats publicats per al conjunt de Catalunya. No hi ha cap dada de cap centre en aquesta pàgina, ni real ni inventada.</p>
+  </div>
+</section>
+
+<!-- ============ TIPUS ============ -->
+<section id="tipus">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Estructura del catàleg</span>
+      <h2>Per què el catàleg va ordenat en quatre blocs</h2>
+      <p class="lede">Posem que la graduació d'un cicle baixa cinc punts. Abans de portar-ho al claustre com un problema del centre, val la pena mirar tres coses més: qui va entrar aquell any, amb quins recursos va funcionar el grup i què s'hi va fer durant el curs. El marc d'avaluació de centre separa els indicadors en aquests quatre blocs precisament per poder fer aquesta comprovació.</p>
+    </div>
+    <div class="four stg">
+      <div class="tcard">
+        <div class="k">01</div><h3>Context</h3>
+        <div class="body"><b>Qui arriba i en quines condicions.</b> El que no decideixes tu. Si això canvia, els resultats canvien encara que el centre faci exactament el mateix que l'any anterior.</div>
+        <div class="more"><ul><li>Composició de la matrícula</li><li>Via d'accés de l'alumnat</li><li>Estabilitat de la plantilla</li><li>Entorn del centre</li></ul></div>
+        <div class="toggle">Veure exemples →</div>
+      </div>
+      <div class="tcard">
+        <div class="k">02</div><h3>Recursos</h3>
+        <div class="body"><b>Què tens i com ho reparteixes.</b> Hores, espais i persones. Sovint expliquen per què un grup ha anat d'una manera i el del costat d'una altra.</div>
+        <div class="more"><ul><li>Ràtios per grup i per cicle</li><li>Ocupació de tallers i aules tècniques</li><li>Hores de coordinació assignades</li><li>Vacants i temps de cobertura</li></ul></div>
+        <div class="toggle">Veure exemples →</div>
+      </div>
+      <div class="tcard">
+        <div class="k">03</div><h3>Processos</h3>
+        <div class="body"><b>Què fa el centre i amb quina regularitat.</b> La part que sí que depèn del centre. És on es veu si una mesura del projecte de direcció s'ha aplicat de veritat o només s'ha escrit.</div>
+        <div class="more"><ul><li>Seguiment de programacions</li><li>Acció tutorial i orientació</li><li>Gestió de l'absentisme</li><li>Convivència i mediació</li></ul></div>
+        <div class="toggle">Veure exemples →</div>
+      </div>
+      <div class="tcard">
+        <div class="k">04</div><h3>Resultats</h3>
+        <div class="body"><b>Com acaba.</b> Són els que et demanaran i els que van a la memòria. També són els únics que no expliquen per si sols per què han sortit així.</div>
+        <div class="more"><ul><li>Graduació i promoció</li><li>Abandonament per cicle i curs</li><li>Inserció laboral</li><li>Satisfacció de la comunitat</li></ul></div>
+        <div class="toggle">Veure exemples →</div>
+      </div>
+    </div>
+    <p class="lede rv" style="margin-top:30px">Per això, quan obres un indicador de resultats al panell, hi tens al costat els de context, recursos i processos del mateix cicle i del mateix curs, sense haver-los d'anar a buscar a un altre document.</p>
+  </div>
+</section>
+
+<!-- ============ ANATOMIA ============ -->
+<section id="indicador">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Anatomia</span>
+      <h2>Qualsevol número s'ha de poder obrir</h2>
+      <p class="lede">Darrere de cada xifra hi ha una definició, un numerador, un denominador i una data de tall. Si aquestes quatre coses no consten, el número d'aquest curs i el de l'anterior poden no ser comparables sense que ningú se n'adoni: n'hi ha prou que un any es comptin les baixes de novembre i l'altre les de gener. Clica la xifra i mira què hi ha a sota.</p>
+    </div>
+
+    <div class="anat">
+      <div class="ind-card rv" id="indcard">
+        <div class="ind-head">
+          <div class="ind-code">R-04 · RESULTATS</div>
+          <div class="ind-title">Taxa d'abandonament a primer curs de grau mitjà</div>
+        </div>
+        <div class="ind-body">
+          <div class="ind-numbers">
+            <button class="big-num" id="bignum" aria-expanded="false">14,8%</button>
+            <span class="arrowto">→</span>
+            <span class="goal">objectiu 10,0%</span>
+          </div>
+          <div class="track"><i id="tfill"></i></div>
+          <div class="hint">Clica la xifra per obrir la fitxa de l'indicador</div>
+        </div>
+        <div class="fitxa">
+          <div class="frow"><b>Definició</b><span>Alumnat que no continua ni titula respecte del matriculat a 1r a data de referència</span></div>
+          <div class="frow"><b>Numerador</b><span><code>alumnes_baixa_1r + alumnes_no_continuen</code></span></div>
+          <div class="frow"><b>Denominador</b><span><code>matricula_1r a 31 d'octubre</code></span></div>
+          <div class="frow"><b>Desagregació</b><span>Per cicle, per família professional, per grup i per via d'accés</span></div>
+          <div class="frow"><b>Font de dades</b><span>Importació de la plataforma de gestió del centre o federació amb els mòduls de notes i faltes</span></div>
+          <div class="frow"><b>Responsable</b><span>Cap d'estudis d'FP</span></div>
+          <div class="frow"><b>Periodicitat</b><span>Trimestral, amb tancament anual al juny</span></div>
+          <div class="frow"><b>Valor de referència</b><span>14,8% al conjunt de Catalunya<sup><a href="#fonts">2</a></sup></span></div>
+        </div>
+      </div>
+
+      <div class="rv">
+        <h3 style="margin-bottom:14px">Per què importa la fitxa i no la xifra</h3>
+        <p class="muted">La mitjana de centre amaga el problema del cicle. Un centre pot tenir un absentisme baix de mitjana i tenir-lo alt en dues famílies professionals concretes, perquè la resta el dilueix. Mentre només miris la mitjana, aquells dos grups no apareixen enlloc i no tens cap motiu per actuar-hi.</p>
+        <p class="muted">Per això cada indicador arrossega la seva desagregació i el seu històric. Quan algú canvia una definició, queda registrat i la sèrie ho adverteix, de manera que ningú compari dos cursos que en realitat no mesuren el mateix.</p>
+        <p class="muted" style="margin:0">I quan una dada no es pot calcular, el mòdul la deixa marcada com a pendent amb el nom de qui la pot aportar. Si no arriba, el recordatori es repeteix i acaba pujant a la direcció.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PANELL ============ -->
+<section id="panell">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">El panell</span>
+      <h2>Tot el catàleg en una pantalla</h2>
+      <p class="lede">Els punts blaus marquen les quatre coses que fan que aquesta pantalla serveixi per dirigir i no només per consultar. Passa-hi el ratolí per sobre o toca'ls.</p>
+    </div>
+
+    <div class="shotwrap rv">
+      <div class="dash" id="dash">
+        <div class="dash-top">
+          <span class="dash-t">Quadre de comandament · projecte de direcció</span>
+          <span class="trims"><span>1r</span><span class="on">2n</span><span>3r</span></span>
+        </div>
+        <div class="drow"><span class="dn">Abandonament a 1r de grau mitjà</span><span class="dv">14,8%</span><span class="do">obj. 10,0</span><span class="ds"><span class="bar"><i style="width:62%;background:var(--error)"></i></span></span></div>
+        <div class="drow"><span class="dn">Inserció laboral, grau mitjà</span><span class="dv">41,9%</span><span class="do">obj. 45,0</span><span class="ds"><span class="bar"><i style="width:78%;background:var(--accent)"></i></span></span></div>
+        <div class="drow"><span class="dn">Inserció laboral, grau superior</span><span class="dv">66,8%</span><span class="do">obj. 65,0</span><span class="ds"><span class="bar"><i style="width:100%;background:var(--success)"></i></span></span></div>
+        <div class="drow"><span class="dn">Continuïtat de grau mitjà a superior</span><span class="dv">85,9%</span><span class="do">obj. 80,0</span><span class="ds"><span class="bar"><i style="width:100%;background:var(--success)"></i></span></span></div>
+        <div class="drow"><span class="dn">Satisfacció de la comunitat educativa</span><span class="dv"><span class="pend">PENDENT</span></span><span class="do">obj. 7,5</span><span class="ds"><span class="bar"></span></span></div>
+        <button class="hs" data-h="0" style="left:78%; top:31%" aria-label="Objectiu i valor actual">1</button>
+        <button class="hs" data-h="1" style="left:76.5%; top:8%" aria-label="Tancaments per trimestre">2</button>
+        <button class="hs" data-h="2" style="left:31%; top:45%" aria-label="Desagregació">3</button>
+        <button class="hs" data-h="3" style="left:59.5%; top:81%" aria-label="Dades pendents">4</button>
+      </div>
+
+      <div class="hs-note" id="hsnote">
+        <span class="k">Punt 1</span>
+        <h3>L'objectiu al costat del valor</h3>
+        <p>El color no surt d'una opinió sinó de la distància entre el valor d'avui i l'objectiu que vas escriure al projecte de direcció. Quan canvies l'objectiu, els colors es recalculen sols.</p>
+        <div class="hs-hint">Passa el ratolí pels punts 2, 3 i 4</div>
+      </div>
+    </div>
+    <p class="small muted rv" style="margin-top:18px">La pantalla es mostra carregada amb els mateixos valors de referència de Catalunya que fa servir la resta de la pàgina, no amb dades de cap centre.</p>
+  </div>
+</section>
+
+<!-- ============ FUNCIONA ============ -->
+<section id="funciona">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Com funciona</span>
+      <h2>Cinc passos, i cap d'ells és teclejar</h2>
+      <p class="lede">La major part dels indicadors d'un projecte de direcció no s'introdueixen: es deriven de dades que el centre ja té en algun lloc. El mòdul es dedica a anar-les a buscar i a mantenir-les vives.</p>
+    </div>
+
+    <div class="anat">
+      <div class="steps rv" id="steps">
+        <div class="steps-prog" id="prog"></div>
+        <div class="step"><h3>Importa</h3><p>Llegeix l'export de la plataforma de gestió que el centre ja fa servir. No cal canviar-la, ni migrar res, ni tocar la matrícula.</p></div>
+        <div class="step"><h3>Calcula</h3><p>Aplica les fórmules del catàleg del centre. Els indicadors derivats es recalculen cada vegada que entren dades noves.</p></div>
+        <div class="step"><h3>Mostra</h3><p>Ensenya cada indicador contra el seu objectiu del projecte de direcció, amb el valor inicial, l'actual i la distància que queda.</p></div>
+        <div class="step"><h3>Persegueix</h3><p>Cada dada que falta té un nom al costat i un recordatori amb data. La casella buida deixa de ser anònima.</p></div>
+        <div class="step"><h3>Exporta</h3><p>Genera l'informe trimestral i la memòria anual amb la nomenclatura del propi centre, llesta per imprimir.</p></div>
+      </div>
+
+      <div class="modes rv">
+        <div class="seg" id="seg">
+          <button class="on" data-m="0">Amb la plataforma actual</button>
+          <button data-m="1">Amb els mòduls de Classofty</button>
+        </div>
+        <div id="modebody">
+          <div class="flowline">
+            <span class="node">Plataforma del centre</span><span class="arrow">→</span>
+            <span class="node">Exportació</span><span class="arrow">→</span>
+            <span class="node hl">Indicadors</span>
+          </div>
+          <div class="mode-body"><b>Mode autònom.</b> El centre conserva la plataforma que té. S'importa un fitxer i el mòdul en deriva tot el catàleg. És la porta d'entrada habitual: no competeix amb res del que ja hi ha instal·lat.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTEGRACIONS ============ -->
+<section id="conviu">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Encaix</span>
+      <h2>Damunt del que ja tens, no en lloc seu</h2>
+      <p class="lede">La primera pregunta de qualsevol centre davant d'una eina nova és què s'ha de desmuntar per posar-la. Aquí la resposta és que res: el mòdul llegeix el que ja existeix i no demana que ningú canviï de manera de treballar.</p>
+    </div>
+    <div class="intg stg">
+      <div class="icard"><h3>La plataforma de gestió</h3><p>Continua sent la de sempre per a matrícula, notes, faltes i comunicació amb les famílies. El mòdul en llegeix l'exportació i no hi escriu mai.</p></div>
+      <div class="icard"><h3>Qui fa els horaris</h3><p>Segueix fent-los amb el que fa servir ara. Del seu resultat només se n'extreuen les dades que alimenten algun indicador.</p></div>
+      <div class="icard"><h3>Els fulls de càlcul de cadascú</h3><p>Els que ja funcionen no s'han de tirar: s'importen tal com estan i deixen de ser l'única còpia de la dada.</p></div>
+    </div>
+    <div class="claim rv">Cap migració de dades d'alumnat, cap risc per a la matrícula i cap necessitat de convèncer el claustre de canviar d'eina. La decisió és de direcció i es pot desfer.</div>
+  </div>
+</section>
+
+<!-- ============ RETIMENT ============ -->
+<section id="retiment">
+  <div class="wrap docgrid">
+    <div class="rv">
+      <span class="eyebrow">Retiment de comptes</span>
+      <h2>Al consell escolar no hi portes el panell, hi portes un document</h2>
+      <p class="lede">El quadre de comandament serveix per dirigir durant el curs, en pantalla. El que es presenta al claustre i al consell escolar, i el que després sosté l'avaluació de la direcció, és un document en paper amb els indicadors, els objectius i la distància que queda entre els dos.</p>
+      <p class="muted">El mòdul el genera amb la nomenclatura que el centre ja fa servir als seus propis documents de gestió, de manera que el text no s'ha de reescriure cada trimestre: només canvien els valors, i queda l'històric de com han evolucionat al llarg del mandat.</p>
+      <p class="muted" style="margin:0">Trimestral per al seguiment intern. Anual per a la memòria. Acumulat per al tancament del projecte de direcció.</p>
+    </div>
+    <div class="sheet rv">
+      <div class="sh-t">Informe d'indicadors</div>
+      <div class="sh-s">Seguiment del projecte de direcció · trimestre</div>
+      <div class="sh-line" style="width:100%"></div>
+      <div class="sh-line" style="width:82%"></div>
+      <div class="sh-line" style="width:64%; margin-bottom:20px"></div>
+      <div class="sh-tab"><span class="b" style="width:88%"></span><span class="sh-pill ok"></span><span class="sh-pill ok"></span><span class="led" style="background:var(--success)"></span></div>
+      <div class="sh-tab"><span class="b" style="width:72%"></span><span class="sh-pill ok"></span><span class="sh-pill warnp"></span><span class="led" style="background:var(--accent)"></span></div>
+      <div class="sh-tab"><span class="b" style="width:94%"></span><span class="sh-pill ok"></span><span class="sh-pill ok"></span><span class="led" style="background:var(--success)"></span></div>
+      <div class="sh-tab"><span class="b" style="width:66%"></span><span class="sh-pill ok"></span><span class="sh-pill ok"></span><span class="led" style="background:var(--success)"></span></div>
+      <div class="sh-tab" style="border-bottom:none"><span class="b" style="width:80%"></span><span class="sh-pill warnp"></span><span class="sh-pill ok"></span><span class="led" style="background:var(--accent)"></span></div>
+      <div class="xsmall muted" style="margin-top:14px">Valor inicial · objectiu · estat</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DADES ============ -->
+<section id="dades">
+  <div class="wrap">
+    <div class="privacy rv">
+      <span class="eyebrow" style="color:#BFDBFE">Protecció de dades</span>
+      <h2>No guardem cap dada dels teus alumnes.</h2>
+      <p class="lede">El mòdul d'indicadors desa agregats. Les dades identificades es fan servir per calcular i no es conserven, de manera que quan el delegat de protecció de dades pregunti on són les dades dels alumnes, la resposta és que no n'hi ha cap de desada.</p>
+      <div class="pgrid">
+        <div><b>Només agregats</b><span>El que persisteix són recomptes i percentatges per grup, cicle i curs. Cap registre individual d'alumnat.</span></div>
+        <div><b>Contracte preparat</b><span>Contracte d'encarregat del tractament i política de conservació redactats abans de la primera importació, no després.</span></div>
+        <div><b>Cap perfil d'alumne</b><span>No hi ha predicció individual ni elaboració de perfils. La unitat mínima d'anàlisi és el grup.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LÍMITS ============ -->
+<section id="limits">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Honestedat</span>
+      <h2>El que aquest mòdul no et dirà</h2>
+      <p class="lede">Hi ha tres coses que un panell d'indicadors no pot fer i que de vegades es venen com si pogués. Val més dir-les d'entrada: si les descobreix pel seu compte qui al centre sap de dades, quedarà en dubte també tota la resta.</p>
+    </div>
+    <div class="lim stg">
+      <div class="lcard"><h3>Que una mesura hagi causat una millora</h3><p>Amb dades observacionals d'un sol centre hi ha estacionalitat, canvis de plantilla i cohorts diferents. Es pot descriure el que ha passat i quan; atribuir-ne la causa, no.</p></div>
+      <div class="lcard"><h3>Què farà un alumne concret</h3><p>Ni és sòlid tècnicament ni és còmode legalment: seria elaborar perfils sobre menors. L'alerta primerenca es fa sobre grups i patrons, no sobre persones.</p></div>
+      <div class="lcard"><h3>Com esteu respecte d'altres centres</h3><p>Fins que no hi hagi prou centres mesurant amb definicions homogènies, qualsevol comparació seria soroll. Les referències públiques d'aquesta pàgina són el que sí que es pot comparar avui.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Preguntes</span>
+      <h2>El que es pregunta sempre</h2>
+    </div>
+    <div class="faq rv">
+      <div class="q"><button type="button">Qui ha de mantenir les dades al dia?</button><div class="a"><p>Ningú de nou. Els indicadors que es deriven d'una exportació es recalculen sols cada vegada que n'entra una. Els que necessiten una dada que no hi surt — una enquesta de satisfacció, per exemple — tenen assignat qui la pot aportar i quan, i és el mòdul qui ho recorda, no la direcció.</p></div></div>
+      <div class="q"><button type="button">I si canviem de plataforma de gestió d'aquí a dos anys?</button><div class="a"><p>El catàleg d'indicadors, les definicions i tot l'històric són teus i viuen al mòdul, no a la plataforma. Canviar de plataforma vol dir canviar l'adaptador d'entrada; la sèrie del projecte de direcció no es perd ni s'ha de reconstruir.</p></div></div>
+      <div class="q"><button type="button">Què passa amb els indicadors que el centre no pot calcular?</button><div class="a"><p>Es queden marcats com a pendents, amb el nom de qui els ha d'aportar i la data. No s'omplen amb una estimació. Que una casella buida es vegi és més útil que un número que ningú pot defensar, i sovint el primer any la feina consisteix precisament a descobrir quants indicadors del projecte estan redactats de manera que no es poden calcular.</p></div></div>
+      <div class="q"><button type="button">Podem canviar els objectius a mitja vigència del projecte?</button><div class="a"><p>Sí, i queda registrat amb la data. El valor inicial es conserva, de manera que a la memòria es pot explicar què es va revisar i quan, que és una cosa que la Inspecció valora més que un objectiu inamovible que tothom sap que no es complirà.</p></div></div>
+      <div class="q"><button type="button">Què passa quan acaba el mandat i entra una direcció nova?</button><div class="a"><p>La sèrie continua. La direcció que entra troba els quatre anys anteriors calculats amb definicions estables, que és exactament el material que necessita per redactar la diagnosi del seu projecte sense començar de zero.</p></div></div>
+      <div class="q"><button type="button">On són les dades i qui hi té accés?</button><div class="a"><p>El que es desa són agregats per grup, cicle i curs. Les dades identificades es fan servir per calcular i no es conserven. L'accés és per rol i el contracte d'encarregat del tractament i la política de conservació estan redactats abans de la primera importació.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta">
+  <div class="wrap">
+    <h2 class="rv">Vint minuts, amb el teu catàleg carregat</h2>
+    <p class="lede rv">Envia'm el catàleg d'indicadors del teu projecte de direcció i el carrego abans de la sessió. En vint minuts pots veure quants es poden calcular amb el que el centre ja té, quants necessiten una dada que encara no recull ningú, i quins estan redactats de manera que no es poden calcular de cap manera.</p>
+    <div class="cta-row rv" style="justify-content:center">
+      <a class="btn btn-p" href="mailto:rogerubia@classofty.com?subject=Sessió%20de%20demostració%20de%20Classofty%20Indicadors&body=Hola%2C%0A%0AMe%20interessa%20conèixer%20millor%20Classofty%20Indicadors%20i%20demandaria%20una%20sessió%20de%20demostració%20personalitzada.%0A%0AGràcies.">Demanar la sessió</a>
+      <a class="btn btn-s" href="#situa">Tornar a la comparació</a>
+    </div>
+  </div>
+</section>
+
+<footer id="fonts">
+  <div class="wrap">
+    <h4>Fonts de les dades citades</h4>
+    <ol>
+      <li>Taxa d'abandonament educatiu prematur a Catalunya, 13,5% el 2025 (13,7% el 2024), davant del 12,8% d'Espanya i l'objectiu europeu del 9% per al 2030. Enquesta de Població Activa, Ministeri d'Educació i Formació Professional, dades publicades el gener del 2026.</li>
+      <li>Taxa d'abandonament als cicles formatius de grau mitjà (14,8%) i al batxillerat (4,7%), concentració al primer curs i volum anual d'abandonament als estudis postobligatoris. Estudi de la Fundació Bofill d'Adrián Zancajo i Carlos Bueno, dades del curs 2020-2021, publicat el novembre del 2024.</li>
+      <li>Matrícula a primers cursos de grau mitjà i superior del curs 2025-2026 i evolució de les sol·licituds. Departament d'Educació i Formació Professional, octubre del 2025.</li>
+      <li>Taxes d'inserció laboral per grau i modalitat, continuïtat formativa i transició de grau mitjà a superior. Estudi d'inserció laboral dels ensenyaments professionals, 18a edició, Departament d'Educació i Formació Professional i Consell General de Cambres de Catalunya, maig del 2025.</li>
+      <li>Tipologia d'indicadors d'avaluació (context, recursos, processos i resultats), Sistema d'Indicadors de Centre i model d'avaluació de centre i de la direcció. Documents per a l'organització i la gestió dels centres, Departament d'Educació i Formació Professional.</li>
+    </ol>
+    <p style="margin-top:22px">Totes les xifres d'aquesta pàgina són agregats públics del conjunt de Catalunya. No s'hi cita cap centre educatiu ni s'hi mostra cap dada d'un centre concret.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- theme ---------- */
+  var root = document.documentElement, tbtn = document.getElementById("theme");
+  try{ var saved = localStorage.getItem("classofty-theme"); if(saved) root.setAttribute("data-theme", saved); }catch(e){}
+  tbtn.addEventListener("click", function(){
+    var cur = root.getAttribute("data-theme");
+    if(!cur) cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    var next = cur === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try{ localStorage.setItem("classofty-theme", next); }catch(e){}
+  });
+
+  /* ---------- reveal ---------- */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll(".rv, .stg").forEach(function(el){ io.observe(el); });
+
+  /* ---------- counters ---------- */
+  function fmt(n, dec){
+    var s = n.toFixed(dec);
+    var parts = s.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return parts.join(",");
+  }
+  var cio = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var el = e.target, target = parseFloat(el.dataset.count), dec = parseInt(el.dataset.dec,10)||0, suf = el.dataset.suf||"";
+      cio.unobserve(el);
+      if(reduce){ el.textContent = fmt(target,dec)+suf; return; }
+      var t0 = null, dur = 1400;
+      function tick(ts){
+        if(!t0) t0 = ts;
+        var p = Math.min((ts-t0)/dur, 1);
+        var e2 = 1 - Math.pow(1-p, 3);
+        el.textContent = fmt(target*e2, dec) + suf;
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }, {threshold:.5});
+  document.querySelectorAll("[data-count]").forEach(function(el){ cio.observe(el); });
+
+  /* ---------- hero catalogue fill ---------- */
+  var panel = document.getElementById("catpanel");
+  var rows = panel.querySelectorAll(".cat-row");
+  var pio = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      pio.unobserve(e.target);
+      rows.forEach(function(r, i){
+        setTimeout(function(){
+          r.querySelector(".cat-val").textContent = r.dataset.val;
+          if(r.dataset.warn) r.classList.add("warn");
+          r.classList.add("filled");
+        }, reduce ? 0 : 420 + i*260);
+      });
+    });
+  }, {threshold:.35});
+  pio.observe(panel);
+
+  /* ---------- comparator ---------- */
+  var REFS = [
+    {n:"Abandonament a 1r de GM", ref:14.8, min:0, max:30, millor:"baix", nota:"Referència del conjunt de Catalunya, curs 2020-2021. Dos terços de l'abandonament es concentren al primer curs, cosa que fa que aquest indicador s'hagi de llegir per cicle i no per centre."},
+    {n:"Inserció laboral, GM", ref:41.9, min:0, max:100, millor:"alt", nota:"Referència de la 18a edició de l'estudi d'inserció, 2025. La inserció depèn molt de la família professional, de manera que la mitjana del centre amaga diferències importants entre cicles."},
+    {n:"Inserció laboral, GS", ref:66.8, min:0, max:100, millor:"alt", nota:"Referència de la 18a edició de l'estudi d'inserció, 2025. Cal llegir-la al costat de la continuïtat formativa: qui segueix estudiant no consta com a inserit."},
+    {n:"Inserció laboral, FP dual", ref:67.4, min:0, max:100, millor:"alt", nota:"Referència de la 18a edició de l'estudi d'inserció, 2025, davant del 48,3% del model amb formació en centres de treball."},
+    {n:"Continuïtat de GM a GS", ref:85.9, min:0, max:100, millor:"alt", nota:"Referència de la 18a edició de l'estudi d'inserció, 2025. Un valor alt aquí matisa una inserció baixa a grau mitjà, perquè bona part de la promoció continua estudiant."}
+  ];
+  var chips = document.getElementById("chips"),
+      slider = document.getElementById("slider"),
+      fill = document.getElementById("fill"),
+      tick = document.getElementById("reftick"),
+      reflab = document.getElementById("reflab"),
+      cval = document.getElementById("cval"),
+      verdict = document.getElementById("verdict"),
+      cnote = document.getElementById("cnote"),
+      axmin = document.getElementById("axmin"),
+      axmax = document.getElementById("axmax"),
+      cur = 0;
+
+  REFS.forEach(function(r, i){
+    var b = document.createElement("button");
+    b.className = "chip" + (i===0 ? " on" : "");
+    b.type = "button";
+    b.textContent = r.n;
+    b.addEventListener("click", function(){
+      cur = i;
+      chips.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("on"); });
+      b.classList.add("on");
+      setup();
+    });
+    chips.appendChild(b);
+  });
+
+  function setup(){
+    var r = REFS[cur];
+    slider.min = r.min; slider.max = r.max;
+    slider.step = (r.max - r.min) > 50 ? 0.5 : 0.1;
+    slider.value = r.ref;
+    axmin.textContent = r.min + "%"; axmax.textContent = r.max + "%";
+    var p = (r.ref - r.min) / (r.max - r.min) * 100;
+    tick.style.left = p + "%";
+    reflab.style.left = p + "%";
+    reflab.textContent = "Catalunya " + r.ref.toFixed(r.ref % 1 === 0 ? 0 : 1).replace(".", ",") + "%";
+    render();
+  }
+
+  function render(){
+    var r = REFS[cur], v = parseFloat(slider.value);
+    fill.style.width = ((v - r.min) / (r.max - r.min) * 100) + "%";
+    cval.textContent = v.toFixed(1).replace(".", ",") + "%";
+    var d = v - r.ref, ad = Math.abs(d).toFixed(1).replace(".", ",");
+    if(Math.abs(d) < 0.05){
+      verdict.className = "verdict";
+      verdict.textContent = "Mou el punt fins al valor del teu centre.";
+    } else {
+      var millorSiBaix = r.millor === "baix";
+      var favorable = millorSiBaix ? d < 0 : d > 0;
+      verdict.className = "verdict " + (favorable ? "good" : "bad");
+      verdict.textContent = ad + " punts " + (d < 0 ? "per sota" : "per sobre") + " de la referència catalana.";
+    }
+    cnote.textContent = r.nota;
+  }
+  slider.addEventListener("input", render);
+  setup();
+
+  /* ---------- fitxa de l'indicador ---------- */
+  var indcard = document.getElementById("indcard"), bignum = document.getElementById("bignum");
+  bignum.addEventListener("click", function(){
+    var open = indcard.classList.toggle("open");
+    bignum.setAttribute("aria-expanded", open ? "true" : "false");
+    indcard.querySelector(".hint").textContent = open ? "Torna a clicar la xifra per tancar la fitxa" : "Clica la xifra per obrir la fitxa de l'indicador";
+  });
+  var tfill = document.getElementById("tfill");
+  var tio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ tio.unobserve(e.target); tfill.style.width = "68%"; } });
+  }, {threshold:.4});
+  tio.observe(indcard);
+
+  /* ---------- tipus cards ---------- */
+  document.querySelectorAll(".tcard").forEach(function(c){
+    c.addEventListener("click", function(){
+      var open = c.classList.toggle("open");
+      c.querySelector(".toggle").textContent = open ? "Amagar exemples ↑" : "Veure exemples →";
+    });
+  });
+
+  /* ---------- steps rail ---------- */
+  var stepsEl = document.getElementById("steps"), prog = document.getElementById("prog");
+  var stepEls = stepsEl.querySelectorAll(".step");
+  function railScroll(){
+    var rect = stepsEl.getBoundingClientRect();
+    var vh = window.innerHeight;
+    var p = (vh * 0.72 - rect.top) / rect.height;
+    p = Math.max(0, Math.min(1, p));
+    prog.style.height = (p * 100) + "%";
+    stepEls.forEach(function(s, i){
+      var sr = s.getBoundingClientRect();
+      s.classList.toggle("on", sr.top < vh * 0.74);
+    });
+  }
+  window.addEventListener("scroll", railScroll, {passive:true});
+  railScroll();
+
+
+  /* ---------- hotspots del panell ---------- */
+  var HS = [
+    {k:"Punt 1", t:"L'objectiu al costat del valor",
+     d:"El color no surt d'una opinió sinó de la distància entre el valor d'avui i l'objectiu que vas escriure al projecte de direcció. Quan canvies l'objectiu, els colors es recalculen sols."},
+    {k:"Punt 2", t:"Cada trimestre queda tancat",
+     d:"El tancament d'un trimestre no es reescriu quan entren dades noves. Això vol dir que el que vas presentar al consell escolar al desembre segueix dient el mateix al juny, i que la comparació entre trimestres és real."},
+    {k:"Punt 3", t:"Obrir l'indicador per cicle i per grup",
+     d:"El mateix indicador desagregat sense sortir de la pantalla ni obrir cap altre document. És on apareixen els dos grups que la mitjana del centre amagava."},
+    {k:"Punt 4", t:"El que encara no es pot calcular",
+     d:"Les dades que falten es veuen, amb qui les ha d'aportar. Un catàleg amb cinc caselles pendents i vint calculades diu la veritat; un amb vint-i-cinc números inventats, no."}
+  ];
+  var dash=document.getElementById("dash"), hsnote=document.getElementById("hsnote");
+  if(dash){
+    var spots=dash.querySelectorAll(".hs");
+    function showHS(i){
+      var h=HS[i];
+      spots.forEach(function(x,j){ x.classList.toggle("on", j===i); });
+      hsnote.innerHTML='<span class="k">'+h.k+'</span><h3>'+h.t+'</h3><p>'+h.d+'</p>'+
+        '<div class="hs-hint">Passa el ratolí per la resta de punts</div>';
+    }
+    spots.forEach(function(b,i){
+      b.addEventListener("mouseenter", function(){ showHS(i); });
+      b.addEventListener("focus", function(){ showHS(i); });
+      b.addEventListener("click", function(){ showHS(i); });
+    });
+  }
+
+  /* ---------- faq ---------- */
+  document.querySelectorAll(".q button").forEach(function(b){
+    b.addEventListener("click", function(){
+      var q=b.parentElement, open=q.classList.contains("open");
+      document.querySelectorAll(".q").forEach(function(x){ x.classList.remove("open"); });
+      if(!open) q.classList.add("open");
+    });
+  });
+
+  /* ---------- modes ---------- */
+  var MODES = [
+    {flow:['Plataforma del centre','Exportació','Indicadors'], hl:2,
+     txt:"<b>Mode autònom.</b> El centre conserva la plataforma que té. S'importa un fitxer i el mòdul en deriva tot el catàleg. És la porta d'entrada habitual: no competeix amb res del que ja hi ha instal·lat."},
+    {flow:['Notes','Faltes','Indicadors'], hl:2,
+     txt:"<b>Mode federat.</b> Si el centre ja fa servir altres mòduls de Classofty, els indicadors es nodreixen directament d'ells i no cal cap importació. El càlcul és continu i no depèn de ningú que recordi exportar."}
+  ];
+  var seg = document.getElementById("seg"), modebody = document.getElementById("modebody");
+  seg.querySelectorAll("button").forEach(function(b){
+    b.addEventListener("click", function(){
+      seg.querySelectorAll("button").forEach(function(x){ x.classList.remove("on"); });
+      b.classList.add("on");
+      var m = MODES[parseInt(b.dataset.m, 10)];
+      var html = '<div class="flowline">';
+      m.flow.forEach(function(n, i){
+        html += '<span class="node' + (i === m.hl ? ' hl' : '') + '">' + n + '</span>';
+        if(i < m.flow.length - 1) html += '<span class="arrow">→</span>';
+      });
+      html += '</div><div class="mode-body">' + m.txt + '</div>';
+      modebody.innerHTML = html;
+    });
+  });
+})();
+</script>
+</body>
+</html>
