@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Classofty Indicadors — el quadre de comandament del projecte de direcció</title>
-<meta name="description" content="Els indicadors que vas comprometre al projecte de direcció, calculats de manera contínua i mesurats contra l'objectiu que vas escriure.">
+<meta name="description" content="Els indicadors que vas comprometre al projecte de direcció, calculats de manera contínua, mesurats contra l'objectiu que vas escriure i amb l'efecte real de cada mesura.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -396,6 +396,53 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
 .q.open .a{max-height:300px}
 .a p{color:var(--text-sec); font-size:.94rem; padding:0 40px 20px 0; margin:0}
 
+/* ---------- efecte ---------- */
+.effgrid{display:grid; grid-template-columns:1.08fr .92fr; gap:40px; align-items:start}
+@media(max-width:940px){.effgrid{grid-template-columns:1fr}}
+.chart{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-lg); padding:22px 22px 16px}
+.chart-t{font-weight:650; font-size:.94rem; margin-bottom:4px}
+.chart-s{font-size:.76rem; color:var(--text-dis); margin-bottom:10px}
+.chart svg{width:100%; height:auto; display:block; overflow:visible}
+.chart svg text{font-family:inherit; font-size:11px; fill:var(--text-sec)}
+.chart svg .lb{font-weight:650; fill:var(--text)}
+@media(max-width:600px){.chart{padding:18px 14px 14px}.chart svg text{font-size:15px}}
+.chart svg .lb-ok{font-weight:700; fill:var(--success)}
+.chart .draw{stroke-dasharray:600; stroke-dashoffset:600; transition:stroke-dashoffset 1.6s cubic-bezier(.2,.7,.3,1) .5s}
+.chart.in .draw{stroke-dashoffset:0}
+.chart .band{opacity:0; transition:opacity .8s ease .2s}
+.chart.in .band{opacity:1}
+@media (prefers-reduced-motion:reduce){.chart .draw{stroke-dashoffset:0; transition:none}.chart .band{opacity:1; transition:none}}
+.inp{list-style:none; margin:0; padding:0}
+.inp li{display:grid; grid-template-columns:92px 1fr; gap:14px; padding:13px 0; border-bottom:1px solid var(--border); font-size:.9rem}
+.inp li:last-child{border-bottom:none}
+.inp .tag{align-self:start; justify-self:start; font-size:.68rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:3px 8px; border-radius:6px; background:var(--bg); border:1px solid var(--border); color:var(--text-sec)}
+.inp b{display:block; font-weight:650; margin-bottom:2px}
+.inp span.d{color:var(--text-sec)}
+.verd{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:40px}
+@media(max-width:940px){.verd{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.verd{grid-template-columns:1fr}}
+.vcard{background:var(--surface); border:1px solid var(--border); border-top:3px solid var(--border); border-radius:var(--radius); padding:20px}
+.vcard h3{font-size:.98rem; margin-bottom:6px}
+.vcard p{font-size:.86rem; color:var(--text-sec); margin:0}
+.vcard.g{border-top-color:var(--success)} .vcard.am{border-top-color:var(--accent)} .vcard.r{border-top-color:var(--error)} .vcard.n{border-top-color:var(--text-dis)}
+.design{margin-top:28px; padding:22px 24px; border-radius:var(--radius); background:var(--surface); border:1px dashed var(--primary); font-size:.95rem; color:var(--text-sec)}
+.design b{color:var(--text)}
+
+/* ---------- diagnosi ---------- */
+.phases{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; counter-reset:ph}
+@media(max-width:940px){.phases{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.phases{grid-template-columns:1fr}}
+.phase{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); position:relative}
+.phase .when{font-size:.72rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--primary)}
+.phase h3{font-size:1.02rem; margin:8px 0 8px}
+.phase p{font-size:.87rem; color:var(--text-sec); margin:0}
+.phase ul{margin:10px 0 0; padding-left:17px; font-size:.84rem; color:var(--text-sec)}
+.phase li{margin-bottom:4px}
+.diag-foot{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:30px}
+@media(max-width:860px){.diag-foot{grid-template-columns:1fr}}
+.diag-foot p{margin:0; color:var(--text-sec); font-size:.95rem}
+.diag-foot b{color:var(--text)}
+
 /* ---------- entrada escalonada ---------- */
 .stg > *{opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1)}
 .stg.in > *{opacity:1; transform:none}
@@ -417,7 +464,8 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
       <a href="#situa">Situa el centre</a>
       <a href="#indicador">L'indicador</a>
       <a href="#panell">El panell</a>
-      <a href="#conviu">Encaix</a>
+      <a href="#efecte">L'efecte</a>
+      <a href="#diagnosi">La diagnosi</a>
       <a href="#faq">Preguntes</a>
     </nav>
     <button class="theme-btn" id="theme" title="Canvia el tema" aria-label="Canvia el tema">◐</button>
@@ -642,6 +690,115 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
   </div>
 </section>
 
+<!-- ============ EFECTE ============ -->
+<section id="efecte">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Mesurar l'efecte</span>
+      <h2>Saber si una mesura ha funcionat, i quant</h2>
+      <p class="lede">Posem que l'abandonament a primer baixa tres punts el curs que poses en marxa les tutories d'acollida. Al claustre algú preguntarà si ha estat per les tutories o perquè aquell any va entrar un altre tipus d'alumnat. Per respondre-ho, el mòdul no compara el curs d'ara amb el de l'any passat. El compara amb el valor que s'esperava si no s'hagués fet res, calculat a partir de l'històric del centre i de les dades que expliquen per què un curs surt diferent d'un altre.</p>
+    </div>
+
+    <div class="effgrid">
+      <div class="chart rv">
+        <div class="chart-t">Observat davant d'esperat</div>
+        <div class="chart-s">Esquema de funcionament. No representa dades de cap centre.</div>
+        <svg viewBox="0 0 560 240" role="img" aria-label="Esquema: l'històric del centre defineix una banda del que s'esperava; després de la mesura, el valor observat queda per sota de la banda i la diferència és l'efecte estimat">
+          <line x1="40" y1="20" x2="40" y2="210" style="stroke:var(--border)" stroke-width="1.5"/>
+          <line x1="40" y1="210" x2="520" y2="210" style="stroke:var(--border)" stroke-width="1.5"/>
+          <text x="46" y="16">Abandonament a 1r (més amunt, pitjor)</text>
+          <polygon class="band" points="310,100 360,86 420,84 480,82 480,118 420,120 360,120 310,108" style="fill:var(--primary);fill-opacity:.13"/>
+          <polyline class="band" points="310,104 480,100" fill="none" style="stroke:var(--primary)" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <line x1="335" y1="26" x2="335" y2="210" style="stroke:var(--text-dis)" stroke-width="1" stroke-dasharray="3 4"/>
+          <text x="340" y="36">inici de la mesura</text>
+          <polyline class="draw" points="70,104 130,92 190,112 250,98 310,106" fill="none" style="stroke:var(--text-sec)" stroke-width="2.2" stroke-linejoin="round"/>
+          <polyline class="draw" points="310,106 370,128 430,148 480,152" fill="none" style="stroke:var(--success)" stroke-width="2.6" stroke-linejoin="round"/>
+          <g style="fill:var(--surface);stroke:var(--text-sec)" stroke-width="2">
+            <circle cx="70" cy="104" r="4"/><circle cx="130" cy="92" r="4"/><circle cx="190" cy="112" r="4"/><circle cx="250" cy="98" r="4"/><circle cx="310" cy="106" r="4"/>
+          </g>
+          <g style="fill:var(--surface);stroke:var(--success)" stroke-width="2">
+            <circle cx="370" cy="128" r="4"/><circle cx="430" cy="148" r="4"/><circle cx="480" cy="152" r="4"/>
+          </g>
+          <text x="190" y="80" text-anchor="middle">històric del centre</text>
+          <text x="420" y="72" text-anchor="middle" class="lb">esperat sense la mesura</text>
+          <text x="420" y="176" text-anchor="middle" class="lb-ok">observat</text>
+          <line x1="496" y1="100" x2="496" y2="152" style="stroke:var(--success)" stroke-width="1.5"/>
+          <line x1="491" y1="100" x2="501" y2="100" style="stroke:var(--success)" stroke-width="1.5"/>
+          <line x1="491" y1="152" x2="501" y2="152" style="stroke:var(--success)" stroke-width="1.5"/>
+          <text x="506" y="122" class="lb-ok">efecte</text>
+          <text x="506" y="136" class="lb-ok">estimat</text>
+          <text x="175" y="230" text-anchor="middle">cursos anteriors</text>
+          <text x="420" y="230" text-anchor="middle">cursos amb la mesura</text>
+        </svg>
+        <p class="xsmall muted" style="margin:6px 0 0">La banda blava és el marge normal d'oscil·lació del centre. Una millora que queda dins de la banda no es compta com a efecte.</p>
+      </div>
+
+      <div class="rv">
+        <h3 style="margin-bottom:6px">Què entra al càlcul de l'esperat</h3>
+        <p class="muted small" style="margin-bottom:8px">Cada factor és una dada d'entrada del model, no una explicació que s'afegeix després.</p>
+        <ul class="inp">
+          <li><span class="tag">Històric</span><div><b>Els cursos anteriors del centre</b><span class="d">De tres a cinc cursos del mateix indicador, per cicle. En surt la tendència i quant oscil·la normalment d'un any a l'altre.</span></div></li>
+          <li><span class="tag">Calendari</span><div><b>L'estacionalitat</b><span class="d">Cada trimestre es compara amb el mateix trimestre dels cursos anteriors. Les baixes de novembre no es comparen amb les de maig.</span></div></li>
+          <li><span class="tag">Sistema</span><div><b>La tendència de Catalunya</b><span class="d">Si l'abandonament baixa a tot el país, aquella part de la baixada no és mèrit del centre i es descompta.</span></div></li>
+          <li><span class="tag">Context</span><div><b>L'alumnat que entra</b><span class="d">Via d'accés, repetidors, edat i matrícula fora de termini. Una promoció diferent té un punt de partida diferent.</span></div></li>
+          <li><span class="tag">Recursos</span><div><b>La plantilla</b><span class="d">Rotació, interinatge, vacants i dies fins que es cobreixen. Un curs amb tres substitucions llargues no es compara com si fos un curs normal.</span></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="verd stg">
+      <div class="vcard g"><h3>Efecte per sobre del marge</h3><p>El valor queda fora de la banda, en la bona direcció, i s'hi manté més d'un tancament. És el que es pot presentar com a resultat de la mesura, amb la xifra i el seu marge.</p></div>
+      <div class="vcard am"><h3>Dins del marge</h3><p>Hi ha diferència, però és de la mida del que el centre oscil·la cada any. El mòdul ho diu així en lloc de pintar-ho de verd, i indica quants cursos més caldrien per saber-ho.</p></div>
+      <div class="vcard r"><h3>Efecte contrari</h3><p>L'indicador s'ha mogut en la mala direcció per sobre del marge. Surt igual de visible que un èxit, perquè és el que permet rectificar a temps.</p></div>
+      <div class="vcard n"><h3>Sense prou història</h3><p>Si no hi ha almenys tres cursos comparables, no es calcula cap efecte. La diagnosi inicial serveix precisament per reconstruir-los.</p></div>
+    </div>
+
+    <div class="design rv"><b>Cada mesura queda registrada:</b> quan comença, a quins cicles s'aplica, quin indicador ha de moure i en quant de temps. I si és possible, val la pena aplicar-la primer en uns cicles i no en tots: comparar els grups que la tenen amb els que encara no, al mateix centre i al mateix curs, és la prova més sòlida que es pot fer sense sortir del centre, i el mòdul la fa automàticament quan el registre ho permet.</div>
+  </div>
+</section>
+
+<!-- ============ DIAGNOSI ============ -->
+<section id="diagnosi">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Punt de partida</span>
+      <h2>Abans del primer trimestre, una diagnosi del centre</h2>
+      <p class="lede">Per saber si un indicador millora cal saber d'on surt i com es mou quan no es fa res. Per això la implantació comença amb una anàlisi del centre feta amb el que ja teniu escrit: les memòries de departament, les memòries anuals de direcció, el projecte de direcció i les dades dels darrers cursos.</p>
+    </div>
+
+    <div class="phases stg">
+      <div class="phase">
+        <span class="when">Setmana 1</span>
+        <h3>Recollida</h3>
+        <p>El centre aporta el que ja té. No cal redactar res de nou.</p>
+        <ul><li>Projecte de direcció vigent</li><li>Memòries anuals i de departament dels últims cursos</li><li>Programació general anual</li><li>Exportacions històriques de la plataforma</li></ul>
+      </div>
+      <div class="phase">
+        <span class="when">Setmanes 2 i 3</span>
+        <h3>Lectura de les memòries</h3>
+        <p>De cada memòria se n'extreuen tres coses:</p>
+        <ul><li>Els indicadors que ja es feien servir i com es calculaven</li><li>Les mesures aplicades, amb el curs i els cicles</li><li>Els fets que expliquen un curs estrany: un cicle nou, una jubilació, un canvi d'horari</li></ul>
+      </div>
+      <div class="phase">
+        <span class="when">Setmanes 3 i 4</span>
+        <h3>Reconstrucció de l'històric</h3>
+        <p>Sèries per cicle i trimestre amb una sola definició. Els canvis de criteri queden marcats. Per a cada indicador es calcula la tendència, l'estacionalitat i el marge normal d'oscil·lació.</p>
+      </div>
+      <div class="phase">
+        <span class="when">Setmanes 5 i 6</span>
+        <h3>Informe de diagnosi</h3>
+        <p>Es presenta a l'equip directiu:</p>
+        <ul><li>El punt de partida de cada indicador</li><li>Quins objectius del projecte són realistes amb aquest marge</li><li>Una primera lectura de les mesures dels cursos anteriors</li></ul>
+      </div>
+    </div>
+
+    <div class="diag-foot rv">
+      <p><b>Les mesures passades ja es poden mesurar.</b> Si les memòries diuen que fa dos cursos es va canviar l'acollida a primer, la diagnosi pot dir si la millora que va venir després va sortir del marge normal del centre o no. És la primera prova del mètode, feta amb dades que el centre ja coneix.</p>
+      <p><b>De les memòries només es guarden fets i agregats.</b> Dates, cicles, mesures i xifres per grup. Cap nom ni cap dada personal que hi pugui aparèixer passa al mòdul. I quan acabi el mandat, la mateixa diagnosi serveix de base per al projecte de direcció següent.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============ FUNCIONA ============ -->
 <section id="funciona">
   <div class="wrap">
@@ -744,10 +901,10 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
     <div class="sec-head rv">
       <span class="eyebrow">Honestedat</span>
       <h2>El que aquest mòdul no et dirà</h2>
-      <p class="lede">Hi ha tres coses que un panell d'indicadors no pot fer i que de vegades es venen com si pogués. Val més dir-les d'entrada: si les descobreix pel seu compte qui al centre sap de dades, quedarà en dubte també tota la resta.</p>
+      <p class="lede">El mòdul mesura l'efecte de les mesures, però hi ha tres coses que no farà, encara que de vegades es venguin com si es poguessin fer. Val més dir-les d'entrada: si les descobreix pel seu compte qui al centre sap de dades, quedarà en dubte també tota la resta.</p>
     </div>
     <div class="lim stg">
-      <div class="lcard"><h3>Que una mesura hagi causat una millora</h3><p>Amb dades observacionals d'un sol centre hi ha estacionalitat, canvis de plantilla i cohorts diferents. Es pot descriure el que ha passat i quan; atribuir-ne la causa, no.</p></div>
+      <div class="lcard"><h3>Un efecte sense el seu marge</h3><p>L'efecte d'una mesura es dona sempre amb el marge d'error. En un grup de vint-i-cinc alumnes, dos abandonaments de diferència són vuit punts, i el mòdul ho dirà com a «dins del marge» abans que com a èxit. I si el mateix curs canvies tres coses alhora, veuràs que l'indicador s'ha mogut, però no quina de les tres ho ha fet.</p></div>
       <div class="lcard"><h3>Què farà un alumne concret</h3><p>Ni és sòlid tècnicament ni és còmode legalment: seria elaborar perfils sobre menors. L'alerta primerenca es fa sobre grups i patrons, no sobre persones.</p></div>
       <div class="lcard"><h3>Com esteu respecte d'altres centres</h3><p>Fins que no hi hagi prou centres mesurant amb definicions homogènies, qualsevol comparació seria soroll. Les referències públiques d'aquesta pàgina són el que sí que es pot comparar avui.</p></div>
     </div>
@@ -764,6 +921,8 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
     <div class="faq rv">
       <div class="q"><button type="button">Qui ha de mantenir les dades al dia?</button><div class="a"><p>Ningú de nou. Els indicadors que es deriven d'una exportació es recalculen sols cada vegada que n'entra una. Els que necessiten una dada que no hi surt — una enquesta de satisfacció, per exemple — tenen assignat qui la pot aportar i quan, i és el mòdul qui ho recorda, no la direcció.</p></div></div>
       <div class="q"><button type="button">I si canviem de plataforma de gestió d'aquí a dos anys?</button><div class="a"><p>El catàleg d'indicadors, les definicions i tot l'històric són teus i viuen al mòdul, no a la plataforma. Canviar de plataforma vol dir canviar l'adaptador d'entrada; la sèrie del projecte de direcció no es perd ni s'ha de reconstruir.</p></div></div>
+      <div class="q"><button type="button">Com distingiu una millora de veritat d'un curs amb alumnes diferents?</button><div class="a"><p>La composició de l'alumnat que entra, la plantilla i la tendència de Catalunya són dades d'entrada del càlcul. El valor observat es compara amb el que s'esperava tenint-les en compte, i només es parla d'efecte quan la diferència supera el marge normal d'oscil·lació del centre.</p></div></div>
+      <div class="q"><button type="button">Quants cursos d'històric calen per mesurar l'efecte?</button><div class="a"><p>Tres cursos comparables com a mínim, i cinc per tenir un marge estret. Amb menys, el mòdul mostra l'evolució però no calcula cap efecte. La majoria de centres tenen aquests cursos a les memòries i a les exportacions antigues: la diagnosi inicial és la feina de recuperar-los.</p></div></div>
       <div class="q"><button type="button">Què passa amb els indicadors que el centre no pot calcular?</button><div class="a"><p>Es queden marcats com a pendents, amb el nom de qui els ha d'aportar i la data. No s'omplen amb una estimació. Que una casella buida es vegi és més útil que un número que ningú pot defensar, i sovint el primer any la feina consisteix precisament a descobrir quants indicadors del projecte estan redactats de manera que no es poden calcular.</p></div></div>
       <div class="q"><button type="button">Podem canviar els objectius a mitja vigència del projecte?</button><div class="a"><p>Sí, i queda registrat amb la data. El valor inicial es conserva, de manera que a la memòria es pot explicar què es va revisar i quan, que és una cosa que la Inspecció valora més que un objectiu inamovible que tothom sap que no es complirà.</p></div></div>
       <div class="q"><button type="button">Què passa quan acaba el mandat i entra una direcció nova?</button><div class="a"><p>La sèrie continua. La direcció que entra troba els quatre anys anteriors calculats amb definicions estables, que és exactament el material que necessita per redactar la diagnosi del seu projecte sense començar de zero.</p></div></div>
@@ -776,9 +935,9 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
 <section class="cta">
   <div class="wrap">
     <h2 class="rv">Vint minuts, amb el teu catàleg carregat</h2>
-    <p class="lede rv">Envia'm el catàleg d'indicadors del teu projecte de direcció i el carrego abans de la sessió. En vint minuts pots veure quants es poden calcular amb el que el centre ja té, quants necessiten una dada que encara no recull ningú, i quins estan redactats de manera que no es poden calcular de cap manera.</p>
+    <p class="lede rv">Envia'm el catàleg d'indicadors del teu projecte de direcció i el carrego abans de la sessió. En vint minuts pots veure quants es poden calcular amb el que el centre ja té, quants necessiten una dada que encara no recull ningú, i quins estan redactats de manera que no es poden calcular de cap manera. Si hi afegeixes les dues últimes memòries, també veuràs quins tenen prou història per mesurar l'efecte de les mesures.</p>
     <div class="cta-row rv" style="justify-content:center">
-      <a class="btn btn-p" href="mailto:rogerubia@classofty.com?subject=Sessió%20de%20demostració%20de%20Classofty%20Indicadors&body=Hola%2C%0A%0AMe%20interessa%20conèixer%20millor%20Classofty%20Indicadors%20i%20demandaria%20una%20sessió%20de%20demostració%20personalitzada.%0A%0AGràcies.">Demanar la sessió</a>
+      <a class="btn btn-p" href="mailto:rogerubia@classofty.com?subject=Sessió%20de%20demostració%20de%20Classofty%20Indicadors&body=Hola%2C%0A%0AM'interessa%20conèixer%20millor%20Classofty%20Indicadors%20i%20voldria%20demanar%20una%20sessió%20de%20demostració%20personalitzada.%0A%0AGràcies.">Demanar la sessió</a>
       <a class="btn btn-s" href="#situa">Tornar a la comparació</a>
     </div>
   </div>
