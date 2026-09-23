@@ -471,6 +471,112 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
 .rep-foot{margin-top:18px; padding-top:16px; border-top:1px solid var(--border)}
 .rep-foot .btn.off{opacity:.45; pointer-events:none}
 
+/* ---------- simulació ---------- */
+.sim{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-lg); overflow:hidden}
+.sm-top{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; padding:14px 20px; border-bottom:1px solid var(--border); background:color-mix(in srgb,var(--bg) 60%, var(--surface))}
+.sm-pills{display:flex; gap:6px; flex-wrap:wrap}
+.sm-pill{font:inherit; font-size:.75rem; font-weight:600; padding:5px 10px; border-radius:999px; border:1px solid var(--border); background:var(--surface); color:var(--text-dis); cursor:pointer}
+.sm-pill.done{color:var(--text-sec)}
+.sm-pill.cur{background:var(--primary); border-color:var(--primary); color:#fff}
+.sm-steptxt{display:none; font-size:.8rem; font-weight:650; color:var(--text-sec)}
+.sm-meta{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+.sm-role{font-size:.75rem; font-weight:700; padding:4px 10px; border-radius:7px; background:var(--primary-light); color:var(--primary-dark)}
+:root[data-theme="dark"] .sm-role{color:#BFDBFE}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sm-role{color:#BFDBFE}}
+.sm-date{font-size:.75rem; font-weight:700; padding:4px 10px; border-radius:7px; background:var(--bg); border:1px solid var(--border); color:var(--text-sec); font-variant-numeric:tabular-nums}
+.sm-stage{padding:22px 22px 18px; min-height:400px}
+.sm-foot{display:flex; align-items:center; justify-content:space-between; gap:18px; padding:14px 20px; border-top:1px solid var(--border)}
+.sm-cap{margin:0; font-size:.88rem; color:var(--text-sec); max-width:62ch}
+.sm-nav{display:flex; gap:8px; flex:none}
+.sm-nav .btn{padding:9px 15px; font-size:.87rem}
+.sm-nav .btn:disabled{opacity:.4; cursor:default}
+@media(max-width:700px){
+  .sm-pills{display:none} .sm-steptxt{display:block}
+  .sm-stage{padding:16px 14px; min-height:460px}
+  .sm-foot{flex-direction:column; align-items:stretch}
+  .sm-nav{justify-content:space-between}
+}
+.sm-fade{animation:smIn .45s cubic-bezier(.2,.7,.3,1) both}
+@keyframes smIn{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+@media (prefers-reduced-motion:reduce){.sm-fade{animation:none}}
+.sm-app{border:1px solid var(--border); border-radius:11px; overflow:hidden; background:var(--surface)}
+.sm-appbar{display:flex; align-items:center; gap:7px; padding:9px 13px; border-bottom:1px solid var(--border); background:color-mix(in srgb,var(--bg) 60%, var(--surface)); font-size:.78rem; font-weight:650; color:var(--text-sec)}
+.sm-appbar i{width:8px; height:8px; border-radius:50%; background:var(--border); display:inline-block}
+.sm-appbody{padding:16px}
+.sm-cols{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+@media(max-width:760px){.sm-cols{grid-template-columns:1fr}}
+.sm-h{font-size:.7rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--text-dis); margin:0 0 8px}
+.sm-row{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 0; border-bottom:1px solid var(--border); font-size:.86rem}
+.sm-row:last-child{border-bottom:none}
+.sm-row small{display:block; color:var(--text-dis); font-size:.74rem}
+.sm-btn{font:inherit; font-size:.76rem; font-weight:650; padding:5px 11px; border-radius:7px; border:1px solid var(--primary); background:transparent; color:var(--primary); cursor:pointer; flex:none}
+.sm-btn:hover{background:var(--primary-light)}
+.sm-btn.fill{background:var(--primary); color:#fff}
+.sm-btn:disabled{border-color:var(--border); color:var(--text-dis); background:transparent; cursor:default}
+.sm-field{display:block; font-size:.76rem; font-weight:600; color:var(--text-sec); margin:10px 0 4px}
+.sm-in{font:inherit; font-size:.86rem; width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text)}
+.sm-in:focus{outline:2px solid var(--primary); outline-offset:1px}
+.sm-inl{display:flex; gap:10px; align-items:end; flex-wrap:wrap}
+.sm-inl > div{flex:1; min-width:120px}
+.sm-tag{font-size:.66rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; padding:2px 7px; border-radius:5px; background:var(--bg); border:1px solid var(--border); color:var(--text-sec); margin-left:6px; white-space:nowrap}
+.sm-tag.new{background:var(--accent-light); border-color:var(--accent); color:var(--text)}
+.sm-empty{font-size:.84rem; color:var(--text-dis); padding:14px 0}
+.sm-mine .sm-row{animation:smIn .4s both}
+.sm-ok{margin-top:12px; padding:11px 13px; border-radius:9px; background:var(--success-light); border:1px solid var(--success); font-size:.86rem}
+.sm-warn{margin-top:14px; padding:12px 14px; border-radius:9px; background:var(--accent-light); border:1px solid var(--accent); font-size:.86rem; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap}
+.sm-time{display:grid; grid-template-columns:150px 1fr; gap:24px; align-items:start}
+@media(max-width:700px){.sm-time{grid-template-columns:1fr; gap:14px}}
+.sm-month{font-size:2.4rem; font-weight:800; letter-spacing:-.04em; line-height:1}
+.sm-track{height:6px; border-radius:3px; background:var(--bg); border:1px solid var(--border); margin-top:14px; overflow:hidden}
+.sm-track i{display:block; height:100%; width:0; background:var(--primary); transition:width .8s linear}
+.sm-ev{display:grid; grid-template-columns:106px 1fr; gap:12px; padding:11px 0; border-bottom:1px solid var(--border); font-size:.88rem; animation:smIn .45s both}
+.sm-ev b{font-size:.8rem; color:var(--primary); font-variant-numeric:tabular-nums}
+.sm-mail{border:1px solid var(--border); border-radius:11px; overflow:hidden; max-width:640px}
+.sm-mailh{padding:12px 16px; border-bottom:1px solid var(--border); font-size:.8rem; color:var(--text-sec); background:color-mix(in srgb,var(--bg) 60%, var(--surface))}
+.sm-mailh b{color:var(--text)}
+.sm-mailb{padding:16px; font-size:.9rem}
+.sm-mailb p{margin:0 0 10px}
+.sm-inbox .sm-msg{display:grid; grid-template-columns:10px 88px 1fr; gap:10px; align-items:start; padding:12px 4px; border-bottom:1px solid var(--border); font-size:.87rem; animation:smIn .45s both}
+.sm-msg .dotu{width:8px; height:8px; border-radius:50%; background:var(--primary); margin-top:6px}
+.sm-msg.red .dotu{background:var(--error)}
+.sm-msg.red span{color:var(--error); font-weight:600}
+.sm-msg b{font-size:.78rem; color:var(--text-sec); font-variant-numeric:tabular-nums}
+.sm-tbl{width:100%; border-collapse:collapse; font-size:.84rem}
+.sm-tbl th{font-size:.68rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--text-dis); text-align:left; padding:0 8px 8px 0; border-bottom:1px solid var(--border)}
+.sm-tbl td{padding:10px 8px 10px 0; border-bottom:1px solid var(--border); vertical-align:middle; font-variant-numeric:tabular-nums}
+.sm-tbl td.n{font-weight:600}
+.sm-tbl .num{text-align:right; white-space:nowrap}
+.sm-led{display:inline-block; width:9px; height:9px; border-radius:50%}
+@media(max-width:560px){.sm-tbl .hm{display:none}}
+.sm-slide{background:linear-gradient(135deg,var(--primary),#1E40AF); color:#fff; border-radius:12px; padding:22px 24px}
+.sm-slide h4{font-size:1.05rem; margin-bottom:4px}
+.sm-slide .sub{font-size:.8rem; color:rgba(255,255,255,.75); margin-bottom:16px}
+.sm-dep{display:grid; grid-template-columns:110px 1fr 58px; gap:12px; align-items:center; margin-bottom:10px; font-size:.84rem}
+.sm-dep .t{height:10px; border-radius:5px; background:rgba(255,255,255,.18); overflow:hidden}
+.sm-dep .t i{display:block; height:100%; border-radius:5px; background:#fff; transition:width .9s cubic-bezier(.2,.7,.3,1)}
+.sm-dep .t i.lo{background:#FCD34D}
+.sm-dep span:last-child{text-align:right; font-variant-numeric:tabular-nums; font-weight:600}
+.sm-chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; min-height:28px; align-items:center; font-size:.8rem}
+.sm-chip{padding:4px 10px; border-radius:999px; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.35); transition:opacity .5s, transform .5s}
+.sm-chip.gone{opacity:0; transform:scale(.8)}
+.sm-res{display:grid; grid-template-columns:1.15fr .85fr; gap:16px}
+@media(max-width:820px){.sm-res{grid-template-columns:1fr}}
+.sm-card{border:1px solid var(--border); border-radius:11px; padding:16px}
+.sm-card h5{font-size:.92rem; margin:0 0 12px}
+.sm-hb{display:grid; grid-template-columns:120px 1fr 62px; gap:10px; align-items:center; font-size:.8rem; margin-bottom:9px; color:var(--text-sec)}
+.sm-hb .t{position:relative; height:14px; border-radius:4px; background:var(--bg)}
+.sm-hb .t i{position:absolute; left:0; top:0; bottom:0; border-radius:4px; transition:width 1s cubic-bezier(.2,.7,.3,1)}
+.sm-hb .t u{position:absolute; top:-3px; bottom:-3px; background:var(--primary); opacity:.18; border-radius:3px}
+.sm-hb .t em{position:absolute; top:-5px; bottom:-5px; width:2px; background:var(--text)}
+.sm-hb b{text-align:right; color:var(--text); font-variant-numeric:tabular-nums}
+.sm-verd{display:inline-block; font-size:.74rem; font-weight:700; padding:4px 9px; border-radius:6px; margin-top:6px}
+.sm-verd.g{background:var(--success-light); color:var(--success); border:1px solid var(--success)}
+.sm-verd.am{background:var(--accent-light); color:var(--text); border:1px solid var(--accent)}
+.sm-concl{margin-top:16px; border-radius:11px; padding:16px 18px; background:var(--bg); border:1px solid var(--border)}
+.sm-concl h5{font-size:.92rem; margin:0 0 8px}
+.sm-concl ol{margin:0; padding-left:20px; font-size:.87rem; color:var(--text-sec)}
+.sm-concl li{margin-bottom:7px}
+
 /* ---------- entrada escalonada ---------- */
 .stg > *{opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1)}
 .stg.in > *{opacity:1; transform:none}
@@ -490,7 +596,7 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
     <nav class="nav-links">
       <a href="#problema">El problema</a>
       <a href="#situa">Situa el centre</a>
-      <a href="#indicador">L'indicador</a>
+      <a href="#simulacio">Simulació</a>
       <a href="#panell">El panell</a>
       <a href="#efecte">L'efecte</a>
       <a href="#diagnosi">La diagnosi</a>
@@ -856,6 +962,34 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
   </div>
 </section>
 
+<!-- ============ SIMULACIÓ ============ -->
+<section id="simulacio">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Simulació</span>
+      <h2>Un curs sencer en dos minuts</h2>
+      <p class="lede">Fes de director, de cap de departament i de claustre. La simulació segueix el projecte de direcció des que s'hi posen els indicadors al setembre fins a les conclusions de juny.</p>
+    </div>
+
+    <div class="sim rv" id="sim">
+      <div class="sm-top">
+        <div class="sm-pills" id="smpills"></div>
+        <div class="sm-steptxt" id="smsteptxt"></div>
+        <div class="sm-meta"><span class="sm-role" id="smrole"></span><span class="sm-date" id="smdate"></span></div>
+      </div>
+      <div class="sm-stage" id="smstage" aria-live="polite"></div>
+      <div class="sm-foot">
+        <p class="sm-cap" id="smcap"></p>
+        <div class="sm-nav">
+          <button type="button" class="btn btn-s" id="smprev">← Anterior</button>
+          <button type="button" class="btn btn-p" id="smnext">Següent →</button>
+        </div>
+      </div>
+    </div>
+    <p class="small muted rv" style="margin-top:16px">Centre fictici. Tots els noms i totes les xifres d'aquesta simulació són inventats.</p>
+  </div>
+</section>
+
 <!-- ============ INTEGRACIONS ============ -->
 <section id="conviu">
   <div class="wrap">
@@ -1162,6 +1296,242 @@ sup a{text-decoration:none; font-weight:700; color:var(--primary)}
   }
   var rsT; window.addEventListener("resize", function(){ clearTimeout(rsT); rsT = setTimeout(drawChart, 150); });
   report();
+
+  /* ---------- simulació ---------- */
+  (function(){
+    var root = document.getElementById("sim"); if(!root) return;
+    var stage = document.getElementById("smstage"), pills = document.getElementById("smpills"),
+        stxt = document.getElementById("smsteptxt"), roleEl = document.getElementById("smrole"),
+        dateEl = document.getElementById("smdate"), capEl = document.getElementById("smcap"),
+        prev = document.getElementById("smprev"), next = document.getElementById("smnext");
+    var RM = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var T = [], cur = 0;
+    function later(f, ms){ T.push(setTimeout(f, RM ? 0 : ms)); }
+    function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+    function f1(x, u){ return x.toFixed(1).replace(".", ",") + (u || ""); }
+    function $(s){ return stage.querySelector(s); }
+
+    var CAT = [
+      {k:"ab", n:"Abandonament a 1r de GM", u:"%", lower:true, base:17.2, q1:15.6, fin:13.9, esp:16.4, mg:1.6, obj:13.0},
+      {k:"abs", n:"Absentisme no justificat a 1r", u:"%", lower:true, base:11.8, q1:10.4, fin:9.1, esp:11.2, mg:1.5, obj:9.0},
+      {k:"ins", n:"Inserció laboral, GM", u:"%", lower:false, base:38.5, q1:null, fin:40.1, esp:39.6, mg:2.8, obj:45.0},
+      {k:"sat", n:"Satisfacció de l'alumnat de 1r", u:"", lower:false, base:6.4, q1:6.8, fin:7.1, esp:6.5, mg:0.4, obj:7.0}
+    ];
+    var NOU = {n:"Alumnat de 1r amb tutoria d'acollida abans del 31 d'octubre", obj:90, resp:"Caps de departament"};
+    var S;
+    function reset(){ S = {cat:null, nou:null, elec:null}; }
+    function fill(){ if(!S.cat) S.cat = CAT[0]; if(!S.nou) S.nou = {n:NOU.n, obj:NOU.obj, resp:NOU.resp}; if(S.elec === null) S.elec = 45; }
+
+    var SC = [
+      {p:"1 · Catàleg", role:"Direcció", date:"Setembre", cap:"Afegeix un indicador del catàleg i crea'n un de nou. L'objectiu és el que vas escriure al projecte de direcció.", r:s1},
+      {p:"2 · El curs avança", role:"Classofty", date:"Setembre", cap:"Mentre el curs avança, el mòdul importa dades i demana les que falten. Ningú ha de recordar res.", r:s2},
+      {p:"3 · Primer correu", role:"Cap de departament · Electricitat", date:"1 d'octubre", cap:"Ara ets cap de departament. Et demanen una sola dada, amb termini. Aporta-la.", r:s3},
+      {p:"4 · Els avisos", role:"Cap de departament · Administració", date:"1 d'octubre", cap:"Aquest cap de departament no respon. Els recordatoris surten sols i, si la dada no arriba, la direcció ho sap sense haver de preguntar.", r:s4},
+      {p:"5 · Panell", role:"Direcció", date:"Novembre", cap:"De nou a la direcció: cada indicador contra el seu objectiu, i les dades que falten amb nom de departament.", r:s5},
+      {p:"6 · Claustre", role:"Claustre", date:"Desembre", cap:"Al claustre es mostra l'estat per departament, sense noms. Avança el temps i mira com es completa.", r:s6},
+      {p:"7 · Resultats", role:"Direcció", date:"Juny", cap:"Final de curs: el valor d'ara, el de l'any passat i el que s'esperava sense les mesures. I les conclusions que en treu el sistema.", r:s7}
+    ];
+    SC.forEach(function(sc, i){
+      var b = document.createElement("button"); b.type = "button"; b.className = "sm-pill"; b.textContent = sc.p;
+      b.addEventListener("click", function(){ if(i > 0) fill(); go(i); });
+      pills.appendChild(b);
+    });
+
+    function go(i){
+      T.forEach(clearTimeout); T = []; cur = i;
+      var sc = SC[i];
+      pills.querySelectorAll(".sm-pill").forEach(function(b, j){ b.className = "sm-pill" + (j === i ? " cur" : (j < i ? " done" : "")); });
+      stxt.textContent = "Pas " + (i+1) + " de " + SC.length + " · " + sc.p.replace(/^\d+ · /, "");
+      roleEl.textContent = sc.role; dateEl.textContent = sc.date; capEl.textContent = sc.cap;
+      prev.disabled = i === 0;
+      next.textContent = i === SC.length - 1 ? "Tornar a començar" : "Següent →";
+      stage.innerHTML = ""; var w = document.createElement("div"); w.className = "sm-fade"; stage.appendChild(w);
+      sc.r(w);
+    }
+    prev.addEventListener("click", function(){ if(cur > 0) go(cur - 1); });
+    next.addEventListener("click", function(){
+      if(cur === SC.length - 1){ reset(); go(0); }
+      else { if(cur === 0 || cur === 2) fill(); go(cur + 1); }
+      var r = root.getBoundingClientRect(); if(r.top < 0) root.scrollIntoView({behavior: RM ? "auto" : "smooth", block:"start"});
+    });
+
+    /* 1 · catàleg */
+    function s1(w){
+      w.innerHTML = '<div class="sm-app"><div class="sm-appbar"><i></i><i></i><i></i>&nbsp;Projecte de direcció · indicadors</div><div class="sm-appbody sm-cols">' +
+        '<div><div class="sm-h">Catàleg d\'indicadors</div><div id="smcat"></div>' +
+        '<div class="sm-h" style="margin-top:18px">Crear un indicador nou</div>' +
+        '<label class="sm-field" for="smnn">Nom</label><input class="sm-in" id="smnn" value="' + esc(NOU.n) + '">' +
+        '<div class="sm-inl"><div><label class="sm-field" for="smno">Objectiu (%)</label><input class="sm-in" id="smno" type="number" min="0" max="100" value="' + NOU.obj + '"></div>' +
+        '<div><label class="sm-field" for="smnr">Qui aporta la dada</label><select class="sm-in" id="smnr"><option>Caps de departament</option><option>Tutors de 1r</option><option>Cap d\'estudis</option></select></div>' +
+        '<div style="flex:none"><button type="button" class="sm-btn fill" id="smcreate">Crear</button></div></div></div>' +
+        '<div><div class="sm-h">El teu projecte de direcció</div><div class="sm-mine" id="smmine"></div></div>' +
+        '</div></div>';
+      var cat = $("#smcat");
+      CAT.forEach(function(c){
+        var row = document.createElement("div"); row.className = "sm-row";
+        row.innerHTML = '<div>' + esc(c.n) + '<small>Valor del curs passat: ' + f1(c.base, c.u) + '</small></div>';
+        var b = document.createElement("button"); b.type = "button"; b.className = "sm-btn"; b.textContent = "Afegir";
+        b.addEventListener("click", function(){ S.cat = c; mine(); });
+        row.appendChild(b); cat.appendChild(row);
+      });
+      $("#smcreate").addEventListener("click", function(){
+        var n = $("#smnn").value.trim() || NOU.n, o = parseFloat($("#smno").value); if(isNaN(o)) o = NOU.obj;
+        S.nou = {n:n, obj:Math.max(0, Math.min(100, o)), resp:$("#smnr").value}; mine();
+      });
+      mine();
+      function mine(){
+        var m = $("#smmine"), h = "";
+        if(S.cat) h += '<div class="sm-row"><div>' + esc(S.cat.n) + '<span class="sm-tag">catàleg</span><small>Inicial ' + f1(S.cat.base, S.cat.u) + ' · objectiu ' + f1(S.cat.obj, S.cat.u) + ' · es calcula sol</small></div></div>';
+        if(S.nou) h += '<div class="sm-row"><div>' + esc(S.nou.n) + '<span class="sm-tag new">nou</span><small>Objectiu ' + f1(S.nou.obj, "%") + ' · la dada l\'aporten: ' + esc(S.nou.resp.toLowerCase()) + '</small></div></div>';
+        m.innerHTML = h || '<div class="sm-empty">Encara no hi ha cap indicador. Afegeix-ne un del catàleg i crea\'n un de nou.</div>';
+        cat.querySelectorAll(".sm-btn").forEach(function(b, j){ b.disabled = S.cat === CAT[j]; b.textContent = S.cat === CAT[j] ? "Afegit" : "Afegir"; });
+        if(S.nou){ var cb = $("#smcreate"); cb.textContent = "Actualitzar"; }
+      }
+    }
+
+    /* 2 · pas del temps */
+    function s2(w){
+      w.innerHTML = '<div class="sm-time"><div><div class="xsmall muted">Curs 2026-2027</div><div class="sm-month" id="smmon">Setembre</div><div class="sm-track"><i id="smtr"></i></div>' +
+        '<button type="button" class="sm-btn" id="smrep" style="margin-top:16px">Tornar a reproduir</button></div><div id="smevs"></div></div>';
+      var EV = [
+        ["Setembre", "15 de setembre", "S'importa l'exportació de la plataforma del centre. " + esc(S.cat.n) + ": el valor inicial es calcula sol."],
+        ["Octubre", "1 d'octubre", "El mòdul envia 6 sol·licituds de dada als caps de departament per a «" + esc(S.nou.n) + "», amb termini el 31 d'octubre."],
+        ["Octubre", "15 d'octubre", "Recordatori automàtic als departaments que encara no han respost."],
+        ["Octubre", "31 d'octubre", "Tanca el termini: 4 de 6 departaments han aportat la dada. Els altres 2 reben un avís i la direcció ho veu al panell."],
+        ["Novembre", "12 de novembre", "Nova importació. Els indicadors del primer trimestre es recalculen sols."]
+      ];
+      function play(){
+        T.forEach(clearTimeout); T = [];
+        var evs = $("#smevs"), mon = $("#smmon"), tr = $("#smtr"); evs.innerHTML = ""; mon.textContent = "Setembre"; tr.style.width = "0";
+        EV.forEach(function(e, i){
+          later(function(){
+            mon.textContent = e[0]; dateEl.textContent = e[1]; tr.style.width = ((i+1)/EV.length*100) + "%";
+            var d = document.createElement("div"); d.className = "sm-ev"; d.innerHTML = "<b>" + e[1] + "</b><span>" + e[2] + "</span>"; evs.appendChild(d);
+          }, 350 + i*1100);
+        });
+      }
+      $("#smrep").addEventListener("click", play); play();
+    }
+
+    /* 3 · primer correu */
+    function s3(w){
+      var total = 48;
+      w.innerHTML = '<div class="sm-mail"><div class="sm-mailh"><b>Classofty Indicadors</b> · per a Jordi, cap d\'Electricitat<br><b>Dada pendent: ' + esc(S.nou.n) + '</b> · termini 31 d\'octubre</div>' +
+        '<div class="sm-mailb"><p>Hola, Jordi:</p><p>El projecte de direcció inclou l\'indicador <b>«' + esc(S.nou.n) + '»</b>. Només cal una dada del teu departament: quants alumnes de 1r han fet la tutoria d\'acollida.</p>' +
+        '<p class="small muted">Et costarà menys d\'un minut. Si l\'envies abans del termini, no rebràs cap recordatori.</p>' +
+        '<div id="smform"><button type="button" class="sm-btn fill" id="smopen">Aportar la dada</button></div></div></div>';
+      $("#smopen").addEventListener("click", function(){
+        $("#smform").innerHTML = '<div class="sm-inl"><div><label class="sm-field">Alumnes de 1r del departament</label><input class="sm-in" value="' + total + ' (de la matrícula)" disabled></div>' +
+          '<div><label class="sm-field" for="smev">Amb tutoria d\'acollida feta</label><input class="sm-in" id="smev" type="number" min="0" max="' + total + '" placeholder="per exemple, 45"></div>' +
+          '<div style="flex:none"><button type="button" class="sm-btn fill" id="smsend">Enviar</button></div></div><div id="smres"></div>';
+        var inp = $("#smev"); inp.focus();
+        function send(){
+          var v = parseInt(inp.value, 10);
+          if(isNaN(v) || v < 0 || v > total){ $("#smres").innerHTML = '<p class="small" style="color:var(--error);margin:8px 0 0">Posa un número entre 0 i ' + total + '.</p>'; return; }
+          S.elec = v;
+          $("#smform").innerHTML = '<div class="sm-ok"><b>Dada rebuda.</b> ' + v + ' de ' + total + ' alumnes (' + f1(v/total*100, "%") + '). El valor de l\'indicador s\'ha actualitzat al panell de direcció. No rebràs cap més recordatori sobre aquesta dada.</div>';
+        }
+        $("#smsend").addEventListener("click", send);
+        inp.addEventListener("keydown", function(e){ if(e.key === "Enter") send(); });
+      });
+    }
+
+    /* 4 · avisos */
+    function s4(w){
+      w.innerHTML = '<div class="sm-app"><div class="sm-appbar"><i></i><i></i><i></i>&nbsp;Safata d\'entrada · Marta, cap d\'Administració</div><div class="sm-appbody sm-inbox" id="smin"></div></div>';
+      var M = [
+        ["1 d'octubre", "Dada pendent: " + esc(S.nou.n) + " · termini 31 d'octubre", ""],
+        ["15 d'octubre", "Recordatori: encara no has aportat la dada", ""],
+        ["28 d'octubre", "Queden 3 dies per aportar la dada", ""],
+        ["3 de novembre", "Termini superat. S'ha avisat la direcció.", "red"]
+      ];
+      M.forEach(function(m, i){
+        later(function(){
+          dateEl.textContent = m[0];
+          var d = document.createElement("div"); d.className = "sm-msg " + m[2];
+          d.innerHTML = '<span class="dotu"></span><b>' + m[0] + '</b><span>' + m[1] + '</span>';
+          $("#smin").appendChild(d);
+        }, 300 + i*1150);
+      });
+    }
+
+    /* 5 · panell de direcció */
+    function s5(w){
+      var others = CAT.filter(function(c){ return c !== S.cat; }).slice(0, 2);
+      var pct = Math.round((S.elec + 44 + 41 + 38) / (48 + 47 + 44 + 42) * 100);
+      function led(v, c){ if(v === null) return "var(--border)"; var ok = c.lower ? v <= c.obj : v >= c.obj; var near = c.lower ? v <= c.obj + c.mg*1.5 : v >= c.obj - c.mg*1.5; return ok ? "var(--success)" : (near ? "var(--accent)" : "var(--error)"); }
+      function row(c){ return '<tr><td class="n">' + esc(c.n) + '</td><td class="num hm">' + f1(c.base, c.u) + '</td><td class="num">' + (c.q1 === null ? '<span class="muted">anual</span>' : f1(c.q1, c.u)) + '</td><td class="num">' + f1(c.obj, c.u) + '</td><td class="num"><span class="sm-led" style="background:' + led(c.q1, c) + '"></span></td></tr>'; }
+      var nouLed = pct >= S.nou.obj ? "var(--success)" : (pct >= S.nou.obj - 10 ? "var(--accent)" : "var(--error)");
+      w.innerHTML = '<div class="sm-app"><div class="sm-appbar"><i></i><i></i><i></i>&nbsp;Quadre de comandament · 1r trimestre</div><div class="sm-appbody">' +
+        '<table class="sm-tbl"><thead><tr><th>Indicador</th><th class="num hm">Inicial</th><th class="num">Actual</th><th class="num">Objectiu</th><th class="num">Estat</th></tr></thead><tbody>' +
+        row(S.cat) +
+        '<tr><td class="n">' + esc(S.nou.n) + '<span class="sm-tag new">nou</span><br><small class="muted">4 de 6 departaments</small></td><td class="num hm">58,0%</td><td class="num">' + f1(pct, "%") + '</td><td class="num">' + f1(S.nou.obj, "%") + '</td><td class="num"><span class="sm-led" style="background:' + nouLed + '"></span></td></tr>' +
+        others.map(row).join("") + '</tbody></table>' +
+        '<div class="sm-warn" id="smwarn"><span><b>2 dades pendents.</b> Administració (termini superat, 3 avisos) i Sanitat (termini superat, 2 avisos).</span><button type="button" class="sm-btn" id="smrem">Enviar un recordatori ara</button></div>' +
+        '<p class="xsmall muted" style="margin:10px 0 0">El valor inicial de l\'indicador nou surt de les memòries del curs passat, recuperades a la diagnosi inicial.</p></div></div>';
+      $("#smrem").addEventListener("click", function(){ this.disabled = true; this.textContent = "Recordatori enviat"; });
+    }
+
+    /* 6 · claustre */
+    function s6(w){
+      var D = [["Electricitat",6,6],["Informàtica",6,6],["Comerç",5,5],["Sanitat",3,5],["Administració",2,5],["FOL",3,4]];
+      w.innerHTML = '<div class="sm-slide"><h4>Seguiment del projecte de direcció</h4><div class="sub">Dades aportades per departament · claustre de desembre</div><div id="smdeps"></div>' +
+        '<div class="sm-chips" id="smch"></div></div>' +
+        '<div style="margin-top:14px; display:flex; gap:12px; align-items:center; flex-wrap:wrap"><button type="button" class="sm-btn fill" id="smadv">Avançar fins al febrer</button><span class="small muted" id="smadvt">Els departaments pendents reben els seus avisos. Ningú no els assenyala al claustre.</span></div>';
+      var deps = $("#smdeps");
+      D.forEach(function(d, i){
+        var r = document.createElement("div"); r.className = "sm-dep";
+        r.innerHTML = '<span>' + d[0] + '</span><div class="t"><i style="width:0"></i></div><span>' + d[1] + ' de ' + d[2] + '</span>'; deps.appendChild(r);
+        later(function(){ var b = r.querySelector("i"); b.style.width = (d[1]/d[2]*100) + "%"; if(d[1] < d[2]) b.className = "lo"; }, 120 + i*90);
+      });
+      var ch = $("#smch"); ch.innerHTML = '<span style="opacity:.8">Pendents:</span>';
+      D.forEach(function(d, i){ if(d[1] < d[2]){ var c = document.createElement("span"); c.className = "sm-chip"; c.textContent = d[0]; c.dataset.i = i; ch.appendChild(c); } });
+      $("#smadv").addEventListener("click", function(){
+        this.disabled = true;
+        var order = [[3,"Gener"],[5,"Gener"],[4,"Febrer"]];
+        order.forEach(function(o, k){
+          later(function(){
+            dateEl.textContent = o[1];
+            var r = deps.children[o[0]], d = D[o[0]], b = r.querySelector("i");
+            b.className = ""; b.style.width = "100%"; r.lastChild.textContent = d[2] + " de " + d[2];
+            var c = ch.querySelector('[data-i="' + o[0] + '"]'); if(c){ c.classList.add("gone"); later(function(){ c.remove(); if(!ch.querySelector(".sm-chip")) ch.innerHTML = "<span>Totes les dades del segon trimestre aportades, sense cap reclamació de la direcció.</span>"; }, 520); }
+          }, 400 + k*1200);
+        });
+        later(function(){ $("#smadvt").textContent = "Febrer: el 100% de les dades han arribat. Els avisos han fet la feina."; }, 400 + 3*1200);
+      });
+    }
+
+    /* 7 · resultats */
+    function s7(w){
+      var c = S.cat, eff = c.fin - c.esp, fav = c.lower ? eff < 0 : eff > 0, big = Math.abs(eff) > c.mg && fav;
+      var vals = [c.base, c.fin, c.esp + c.mg, c.esp - c.mg], mx = Math.max.apply(null, vals) * 1.12;
+      function pc(v){ return (v / mx * 100) + "%"; }
+      var nouFin = 94, nouBase = 58;
+      w.innerHTML = '<div class="sm-res">' +
+        '<div class="sm-card"><h5>' + esc(c.n) + '</h5>' +
+        '<div class="sm-hb"><span>Curs passat</span><div class="t"><i data-w="' + pc(c.base) + '" style="width:0;background:var(--text-dis)"></i></div><b>' + f1(c.base, c.u) + '</b></div>' +
+        '<div class="sm-hb"><span>Esperat sense mesures</span><div class="t"><u style="left:' + pc(c.esp - c.mg) + ';width:calc(' + pc(c.esp + c.mg) + ' - ' + pc(c.esp - c.mg) + ')"></u><em style="left:' + pc(c.esp) + '"></em></div><b>' + f1(c.esp, c.u) + '</b></div>' +
+        '<div class="sm-hb"><span>Aquest curs</span><div class="t"><i data-w="' + pc(c.fin) + '" style="width:0;background:' + (big ? "var(--success)" : "var(--accent)") + '"></i></div><b>' + f1(c.fin, c.u) + '</b></div>' +
+        '<span class="sm-verd ' + (big ? "g" : "am") + '">' + (big ? "Efecte per sobre del marge" : "Dins del marge") + ' · ' + (eff > 0 ? "+" : "−") + f1(Math.abs(eff)) + ' (±' + f1(c.mg) + ')</span></div>' +
+        '<div class="sm-card"><h5>' + esc(S.nou.n) + '</h5>' +
+        '<div class="sm-hb"><span>Curs passat</span><div class="t"><i data-w="' + nouBase + '%" style="width:0;background:var(--text-dis)"></i><em style="left:' + S.nou.obj + '%"></em></div><b>' + nouBase + '%</b></div>' +
+        '<div class="sm-hb"><span>Aquest curs</span><div class="t"><i data-w="' + nouFin + '%" style="width:0;background:' + (nouFin >= S.nou.obj ? "var(--success)" : "var(--accent)") + '"></i><em style="left:' + S.nou.obj + '%"></em></div><b>' + nouFin + '%</b></div>' +
+        '<p class="xsmall muted" style="margin:4px 0 0">La línia vertical marca l\'objectiu (' + f1(S.nou.obj, "%") + ').</p>' +
+        '<span class="sm-verd ' + (nouFin >= S.nou.obj ? "g" : "am") + '">' + (nouFin >= S.nou.obj ? "Objectiu assolit" : "Per sota de l'objectiu") + '</span></div></div>' +
+        '<div class="sm-concl"><h5>Conclusions del sistema</h5><ol id="smconc"></ol></div>';
+      later(function(){ stage.querySelectorAll("[data-w]").forEach(function(i){ i.style.width = i.dataset.w; }); }, 150);
+      var L = [];
+      L.push("«" + esc(S.nou.n) + "» ha passat del " + nouBase + "% al " + nouFin + "%" + (nouFin >= S.nou.obj ? " i supera" : " i no arriba a") + " l'objectiu del " + f1(S.nou.obj, "%") + ". Administració i Sanitat, que van aportar la dada més tard, són els departaments on l'acollida es va fer més tard.");
+      if(big) L.push(esc(c.n) + " ha passat de " + f1(c.base, c.u) + " a " + f1(c.fin, c.u) + ". Tenint en compte la tendència de Catalunya, l'alumnat que ha entrat i l'estacionalitat, s'esperava " + f1(c.esp, c.u) + ": l'efecte estimat és de " + f1(Math.abs(eff)) + " punts, amb un marge de ±" + f1(c.mg) + ". Queda per sobre del marge.");
+      else L.push(esc(c.n) + " ha passat de " + f1(c.base, c.u) + " a " + f1(c.fin, c.u) + ", però la diferència amb el que s'esperava (" + f1(c.esp, c.u) + ") és dins del marge d'oscil·lació del centre (±" + f1(c.mg) + "). Encara no es pot atribuir a les mesures.");
+      L.push("Al primer trimestre, les dades van arribar dins de termini en 4 de 6 departaments. Al segon, en tots 6.");
+      L.push(big ? "Recomanació: mantenir les mesures un segon curs per confirmar que l'efecte es manté abans de presentar-lo com a consolidat." : "Recomanació: mantenir les mesures i tornar-ho a mirar al tancament del segon curs, quan hi haurà prou història per estrènyer el marge.");
+      var ol = $("#smconc");
+      L.forEach(function(t, i){ later(function(){ var li = document.createElement("li"); li.className = "sm-fade"; li.innerHTML = t; ol.appendChild(li); }, 900 + i*650); });
+    }
+
+    reset(); go(0);
+  })();
 
   /* ---------- fitxa de l'indicador ---------- */
   var indcard = document.getElementById("indcard"), bignum = document.getElementById("bignum");
