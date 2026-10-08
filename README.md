@@ -27,6 +27,12 @@ Classofty Indicadors és un mòdul de gestió d'indicadors dissenyat per a direc
 
 ---
 
+## Recursos
+
+`recursos.html` (servit a `/recursos`) és la secció de tècniques d'aprenentatge: 16 temes en 6 categories, minijocs, base científica amb referències i un test orientatiu d'intel·ligències múltiples. Tot funciona dins del navegador i el progrés es desa en local.
+
+---
+
 ## 🚀 Com accedir?
 
 Visita **[classofty.cat](https://classofty.cat)** per veure la demostració interactiva.
